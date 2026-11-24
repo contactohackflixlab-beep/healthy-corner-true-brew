@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Healthy Corner + True Brew | Pedidos Para Llevar — David, Chiriquí</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: #111317;
+      color: #f4f4f5;
+    }
+    .card-surface {
+      background: linear-gradient(150deg, rgba(28, 31, 38, 0.96), rgba(19, 22, 27, 0.98));
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #c81e1e, #881313);
+      transition: all 0.2s ease;
+    }
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #e02424, #9f1239);
+    }
+    .btn-healthy {
+      background: linear-gradient(135deg, #15803d, #14532d);
+      transition: all 0.2s ease;
+    }
+    .btn-healthy:hover {
+      background: linear-gradient(135deg, #16a34a, #166534);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col overflow-x-hidden">
+
+  <!-- Encabezado principal -->
+  <header class="sticky top-0 z-40 bg-[#111317]/95 backdrop-blur border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-4 py-3.5 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-3 min-w-0">
+        <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-emerald-600 via-zinc-900 to-red-700 flex items-center justify-center font-black text-white text-sm shadow-lg border border-white/15 shrink-0">
+          HC·TB
+        </div>
+        <div class="min-w-0">
+          <div class="flex items-center gap-2 flex-wrap">
+            <span class="font-black text-lg sm:text-xl tracking-tight text-white">HEALTHY CORNER</span>
+            <span class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-red-950/90 text-red-300 border border-red-700/40">+ TRUE BREW</span>
+          </div>
+          <p class="text-xs text-zinc-400 truncate">Para Llevar (Pickup) · Calle Ernesto Pérez Balladares, diagonal al Hospital Chiriquí, David</p>
+        </div>
+      </div>
+
+      <button id="btnAbrirCarritoMovil" type="button" class="lg:hidden btn-primary px-4 py-2.5 rounded-xl text-xs font-bold text-white flex items-center gap-2 shadow">
+        <span>Mi Pedido</span>
+        <span id="badgeMovil" class="bg-white/20 px-2 py-0.5 rounded-full">0 · $0.00</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Banner de bienvenida y puntos clave para llevar -->
+  <section class="max-w-7xl w-full mx-auto px-4 pt-6 pb-5">
+    <div class="card-surface rounded-2xl p-6 md:p-8 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+      <div class="max-w-2xl space-y-2.5">
+        <span class="inline-block text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-emerald-950/80 text-emerald-300 border border-emerald-700/40">
+          Ordena aquí · Pasa a recoger sin fila
+        </span>
+        <h1 class="text-2xl sm:text-4xl font-black text-white leading-tight">
+          Tu pedido listo justo cuando vas pasando.
+        </h1>
+        <p class="text-sm text-zinc-300 leading-relaxed">
+          Armá tu orden de <strong class="text-emerald-400">Healthy Corner</strong>, cafés y bebidas refrescantes de <strong class="text-red-400">True Brew</strong>, elegí tu <strong>medio de pago</strong> y avisanos <strong>a qué hora pasás</strong>.
+        </p>
+      </div>
+
+      <div class="text-xs text-zinc-300 bg-black/35 p-4 rounded-xl border border-white/10 space-y-1.5 lg:max-w-sm w-full shrink-0">
+        <div><strong class="text-white">Punto de retiro:</strong> Calle Ernesto Pérez Balladares, diagonal al Hospital Chiriquí, David, Chiriquí</div>
+        <div><strong class="text-white">WhatsApp / Tel:</strong> +507 6002-4647</div>
+        <div><strong class="text-white">Instagram:</strong> @thehealthycornerdavid · @truebrewdrinks</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contenido principal: Menú + Carrito de Retiro -->
+  <main class="max-w-7xl w-full mx-auto px-4 pb-16 grid lg:grid-cols-12 gap-8 flex-1">
+
+    <!-- Columna izquierda: Filtros y tarjetas de productos -->
+    <div class="lg:col-span-7 xl:col-span-8 space-y-6 min-w-0">
+      <div class="space-y-3">
+        <div class="flex flex-wrap gap-2" id="filtrosCategoria">
+          <button type="button" data-cat="todos" class="filtro-btn px-4 py-2.5 rounded-xl text-xs font-bold bg-white text-zinc-950 shadow">Todo el Menú</button>
+          <button type="button" data-cat="healthy" class="filtro-btn px-4 py-2.5 rounded-xl text-xs font-bold bg-zinc-800 text-zinc-200 hover:bg-zinc-700">Healthy Corner (Comidas)</button>
+          <button type="button" data-cat="bebidas-hc" class="filtro-btn px-4 py-2.5 rounded-xl text-xs font-bold bg-zinc-800 text-zinc-200 hover:bg-zinc-700">Jugos y Batidos</button>
+          <button type="button" data-cat="true-brew" class="filtro-btn px-4 py-2.5 rounded-xl text-xs font-bold bg-zinc-800 text-zinc-200 hover:bg-zinc-700">True Brew (Café y Refrescantes)</button>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2" id="filtrosPreparacion">
+          <span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 mr-1">Preparación:</span>
+          <button type="button" data-prep="todos" class="prep-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-amber-400 text-zinc-950 shadow">Todos</button>
+          <button type="button" data-prep="listo" class="prep-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-zinc-800 text-zinc-200 hover:bg-zinc-700 border border-white/10">Listo / Listo rápido</button>
+          <button type="button" data-prep="al-momento" class="prep-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-zinc-800 text-zinc-200 hover:bg-zinc-700 border border-white/10">Hecho al momento</button>
+        </div>
+      </div>
+
+      <div id="gridMenu" class="grid sm:grid-cols-2 gap-4"></div>
+    </div>
+
+    <!-- Columna derecha: Orden para llevar, hora de recogida y pago -->
+    <aside id="panelPedido" class="lg:col-span-5 xl:col-span-4 min-w-0">
+      <div class="card-surface rounded-2xl p-5 sm:p-6 lg:sticky lg:top-20 space-y-5">
+        <div class="flex items-center justify-between border-b border-white/10 pb-3">
+          <div>
+            <span class="text-[11px] font-bold uppercase tracking-wider text-red-400">Modalidad Para Llevar</span>
+            <h2 class="text-xl font-black text-white">Tu Orden</h2>
+          </div>
+          <button id="btnLimpiarCarrito" type="button" class="text-xs text-zinc-400 hover:text-white underline">Vaciar</button>
+        </div>
+
+        <!-- Lista de productos agregados -->
+        <div id="listaCarrito" class="space-y-3 max-h-72 overflow-y-auto pr-1">
+          <p class="text-xs text-zinc-400 italic py-4 text-center">Aún no has agregado productos a tu pedido.</p>
+        </div>
+
+        <!-- Total calculado -->
+        <div class="border-t border-white/10 pt-3 flex items-center justify-between text-base font-black text-white">
+          <span>Total estimado</span>
+          <span id="lblTotal" class="text-xl text-emerald-400">$0.00</span>
+        </div>
+
+        <!-- Formulario de retiro, hora y pago -->
+        <form id="formCheckout" class="space-y-3.5 border-t border-white/10 pt-4 text-xs" novalidate>
+          <div class="grid sm:grid-cols-2 gap-3">
+            <div>
+              <label for="cliNombre" class="block text-zinc-300 font-semibold mb-1">Tu nombre *</label>
+              <input id="cliNombre" type="text" placeholder="Ej. Sofía Morales" class="w-full px-3 py-2.5 rounded-xl bg-zinc-900 border border-white/15 text-white" />
+            </div>
+            <div>
+              <label for="cliTelefono" class="block text-zinc-300 font-semibold mb-1">Tu teléfono / WhatsApp</label>
+              <input id="cliTelefono" type="tel" placeholder="Ej. 6XXX-XXXX" class="w-full px-3 py-2.5 rounded-xl bg-zinc-900 border border-white/15 text-white" />
+            </div>
+          </div>
+
+          <div>
+            <label for="horaRecogida" class="block text-zinc-300 font-semibold mb-1">¿A qué hora pasas a recoger? *</label>
+            <p id="guiaHoraRecogida" class="text-[11px] text-amber-300/90 mb-2">Tip de retiro: si pides ítems "Hecho al momento", calcula 15–25 min antes de pasar.</p>
+            <div class="grid grid-cols-2 gap-2 mb-2">
+              <button type="button" data-hora="Lo antes posible (15 - 20 min)" class="preset-hora px-3 py-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-white font-semibold border border-white/10 text-left">
+                Lo antes posible (15-20 min)
+              </button>
+              <button type="button" data-hora="En 30 minutos" class="preset-hora px-3 py-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-white font-semibold border border-white/10 text-left">
+                En 30 minutos
+              </button>
+            </div>
+            <input id="horaRecogida" type="text" value="Lo antes posible (15 - 20 min)" placeholder="Ej. 12:15 PM o en 25 min" class="w-full px-3 py-2.5 rounded-xl bg-zinc-900 border border-white/15 text-white" />
+          </div>
+
+          <div>
+            <label for="medioPago" class="block text-zinc-300 font-semibold mb-1">Medio de pago *</label>
+            <select id="medioPago" class="w-full px-3 py-2.5 rounded-xl bg-zinc-900 border border-white/15 text-white">
+              <option value="Yappy">Yappy</option>
+              <option value="Efectivo al retirar">Efectivo al retirar</option>
+              <option value="Transferencia / ACH">Transferencia / ACH</option>
+              <option value="Tarjeta">Tarjeta</option>
+            </select>
+          </div>
+
+          <div id="campoEfectivo" class="hidden">
+            <label for="montoBillete" class="block text-zinc-300 font-semibold mb-1">¿Pagas con billete de cuánto? (para vuelto)</label>
+            <input id="montoBillete" type="text" placeholder="Ej. Billete de $20" class="w-full px-3 py-2.5 rounded-xl bg-zinc-900 border border-white/15 text-white" />
+          </div>
+
+          <div>
+            <label for="notasPedido" class="block text-zinc-300 font-semibold mb-1">Notas generales del pedido (opcional)</label>
+            <input id="notasPedido" type="text" placeholder="Ej. Empaque para llevar, sin picante, etc." class="w-full px-3 py-2.5 rounded-xl bg-zinc-900 border border-white/15 text-white" />
+          </div>
+
+          <button type="submit" class="w-full py-3.5 rounded-xl font-black text-sm text-white btn-primary shadow-lg">
+            Enviar Pedido por WhatsApp (6002-4647)
+          </button>
+
+          <button id="btnCopiarResumen" type="button" class="w-full py-2.5 rounded-xl font-bold text-xs text-zinc-200 bg-zinc-800 hover:bg-zinc-700 border border-white/10">
+            Copiar resumen del pedido
+          </button>
+
+          <p id="msgEstado" class="text-amber-300 text-center font-medium min-h-[18px]"></p>
+        </form>
+      </div>
+    </aside>
+  </main>
+
+  <footer class="border-t border-white/10 bg-black/45 py-6 px-4 text-xs text-zinc-400">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+      <span><strong>HEALTHY CORNER + TRUE BREW</strong> · Pedidos Para Llevar en David, Chiriquí</span>
+      <span>WhatsApp: +507 6002-4647 · @thehealthycornerdavid · @truebrewdrinks</span>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      const WHATSAPP_NUMERO = '50760024647';
+
+      // Catálogo completo de Healthy Corner y True Brew con etiqueta de preparación
+      // prepTipo: 'listo' ('Listo' / 'Listo rápido') | 'al-momento' ('Hecho al momento')
+      const PRODUCTOS = [
+        { id: 'hc-1', cat: 'healthy', prepTipo: 'listo', prepEtiqueta: 'Listo rápido', marca: 'Healthy Corner', nombre: 'Café + Empanada', desc: 'Café Americano + Empanada de Pollo o Piña', opciones: [{ label: 'Combo estándar', precio: 2.50 }] },
+        { id: 'hc-2', cat: 'healthy', prepTipo: 'listo', prepEtiqueta: 'Listo rápido', marca: 'Healthy Corner', nombre: 'Café + Dulce', desc: 'Café Americano + Dulce de Zanahoria (con café True Brew)', opciones: [{ label: 'Combo estándar', precio: 2.50 }] },
+        { id: 'hc-3', cat: 'healthy', prepTipo: 'al-momento', prepEtiqueta: 'Hecho al momento', marca: 'Healthy Corner', nombre: 'Pancake con huevos', desc: 'Desayuno para llevar recién preparado', opciones: [{ label: 'Orden', precio: 5.00 }] },
+        { id: 'hc-4', cat: 'healthy', prepTipo: 'al-momento', prepEtiqueta: 'Hecho al momento', marca: 'Healthy Corner', nombre: 'Wrap de pollo', desc: 'Pollo fresco, vegetales y aderezo de la casa', opciones: [{ label: 'Wrap', precio: 6.75 }] },
+        { id: 'hc-5', cat: 'healthy', prepTipo: 'al-momento', prepEtiqueta: 'Hecho al momento', marca: 'Healthy Corner', nombre: 'Emparedado de pollo', desc: 'Emparedado recién preparado para llevar', opciones: [{ label: 'Emparedado', precio: 6.75 }] },
+        { id: 'hc-6', cat: 'healthy', prepTipo: 'listo', prepEtiqueta: 'Listo', marca: 'Healthy Corner', nombre: 'Tacos de pollo', desc: 'Tacos de pollo en tortillas de avena', opciones: [{ label: 'Orden', precio: 4.50 }] },
+        { id: 'hc-7', cat: 'healthy', prepTipo: 'listo', prepEtiqueta: 'Listo', marca: 'Healthy Corner', nombre: 'Bistec picado', desc: 'Bistec picado + Arroz + ensalada', opciones: [{ label: 'Plato para llevar', precio: 4.75 }] },
+        { id: 'hc-8', cat: 'healthy', prepTipo: 'listo', prepEtiqueta: 'Listo rápido', marca: 'Healthy Corner', nombre: 'Sopa de pollo + Arroz', desc: 'Sopa casera de pollo acompañada de arroz', opciones: [{ label: 'Orden', precio: 3.50 }] },
+        { id: 'hc-9', cat: 'healthy', prepTipo: 'listo', prepEtiqueta: 'Listo', marca: 'Healthy Corner', nombre: 'Pollo en salsa agridulce', desc: 'Pollo en salsa agridulce + Arroz + ensalada', opciones: [{ label: 'Plato para llevar', precio: 4.50 }] },
+        { id: 'hc-10', cat: 'healthy', prepTipo: 'al-momento', prepEtiqueta: 'Hecho al momento', marca: 'Healthy Corner', nombre: 'Pollo a la plancha', desc: 'Con papas dulces asadas y ensalada fresca', opciones: [{ label: 'Plato para llevar', precio: 5.00 }] },
+        { id: 'hc-11', cat: 'healthy', prepTipo: 'al-momento', prepEtiqueta: 'Hecho al momento', marca: 'Healthy Corner', nombre: 'Combo Hamburguesa Doble', desc: 'Hamburguesa doble (dos rodajas de carne con queso) + Bebida 12 oz', opciones: [{ label: 'Combo', precio: 9.50 }] },
+        { id: 'hc-12', cat: 'healthy', prepTipo: 'al-momento', prepEtiqueta: 'Hecho al momento', marca: 'Healthy Corner', nombre: 'Hamburguesa La dulce', desc: 'Con salsa de ciruela', opciones: [{ label: 'Hamburguesa', precio: 5.50 }] },
+        { id: 'hc-13', cat: 'healthy', prepTipo: 'al-momento', prepEtiqueta: 'Hecho al momento', marca: 'Healthy Corner', nombre: 'Nachos de Pollo', desc: 'Nachos crujientes con pollo para llevar', opciones: [{ label: 'Orden', precio: 6.00 }] },
+        { id: 'hc-14', cat: 'healthy', prepTipo: 'al-momento', prepEtiqueta: 'Hecho al momento', marca: 'Healthy Corner', nombre: 'Tacos Mexicanos (Pollo o Carne)', desc: 'Orden de 3 tacos + bebida piña 12 oz', opciones: [{ label: 'Orden 3 tacos + bebida', precio: 6.50 }] },
+
+        {
+          id: 'jb-1', cat: 'bebidas-hc', prepTipo: 'al-momento', prepEtiqueta: 'Hecho al momento', marca: 'Healthy Corner', nombre: 'Jugo Natural sin azúcar añadida',
+          desc: 'Jugo verde Tropical, Jugo Rojo vital o Jugo Tropical Dorado',
+          opciones: [
+            { label: '12 oz', precio: 3.00 },
+            { label: '16 oz', precio: 3.50 },
+            { label: '24 oz', precio: 4.50 }
+          ]
+        },
+        {
+          id: 'jb-2', cat: 'bebidas-hc', prepTipo: 'al-momento', prepEtiqueta: 'Hecho al momento', marca: 'Healthy Corner', nombre: 'Batido de leche con fruta',
+          desc: 'Maracuyá, Mango, Piña colada, Coco, Piña, Fresa o Guanábana',
+          opciones: [
+            { label: '12 oz', precio: 2.50 },
+            { label: '16 oz', precio: 3.50 },
+            { label: '24 oz', precio: 4.50 }
+          ]
+        },
+
+        {
+          id: 'tb-1', cat: 'true-brew', prepTipo: 'listo', prepEtiqueta: 'Listo rápido', marca: 'True Brew', nombre: 'Americano (Caliente)',
+          desc: 'Espresso + agua caliente',
+          opciones: [{ label: '8 oz', precio: 2.00 }, { label: '12 oz', precio: 3.00 }],
+          permiteShot: true
+        },
+        {
+          id: 'tb-2', cat: 'true-brew', prepTipo: 'al-momento', prepEtiqueta: 'Hecho al momento', marca: 'True Brew', nombre: 'Cappuccino',
+          desc: 'Espresso + leche + espuma',
+          opciones: [{ label: '8 oz', precio: 2.50 }, { label: '12 oz', precio: 4.25 }],
+          permiteShot: true
+        },
+        {
+          id: 'tb-3', cat: 'true-brew', prepTipo: 'listo', prepEtiqueta: 'Listo rápido', marca: 'True Brew', nombre: 'Café con Leche',
+          desc: 'Espresso + leche vaporizada',
+          opciones: [{ label: '8 oz', precio: 2.00 }, { label: '12 oz', precio: 2.50 }],
+          permiteShot: true
+        },
+        {
+          id: 'tb-4', cat: 'true-brew', prepTipo: 'al-momento', prepEtiqueta: 'Hecho al momento', marca: 'True Brew', nombre: 'True Latte (Chocolate Oscuro o Caramelo)',
+          desc: 'Café helado · Espresso + leche + sabor a elección',
+          opciones: [{ label: '12 oz', precio: 3.75 }, { label: '16 oz', precio: 4.50 }, { label: '24 oz', precio: 5.75 }],
+          permiteShot: true
+        },
+        {
+          id: 'tb-5', cat: 'true-brew', prepTipo: 'al-momento', prepEtiqueta: 'Hecho al momento', marca: 'True Brew', nombre: 'Panamá Breve / Blondie-Style',
+          desc: 'Café helado · Caramelo + vainilla con base breve',
+          opciones: [{ label: '12 oz', precio: 4.25 }, { label: '16 oz', precio: 5.00 }, { label: '24 oz', precio: 6.25 }],
+          permiteShot: true
+        },
+        {
+          id: 'tb-6', cat: 'true-brew', prepTipo: 'al-momento', prepEtiqueta: 'Hecho al momento', marca: 'True Brew', nombre: 'Canal Mocha / Condensada',
+          desc: 'Café helado · Espresso con chocolate o leche condensada',
+          opciones: [{ label: '12 oz', precio: 4.00 }, { label: '16 oz', precio: 4.75 }, { label: '24 oz', precio: 6.00 }],
+          permiteShot: true
+        },
+        {
+          id: 'tb-7', cat: 'true-brew', prepTipo: 'listo', prepEtiqueta: 'Listo rápido', marca: 'True Brew', nombre: 'Americano Helado',
+          desc: 'Espresso + agua fría al momento',
+          opciones: [{ label: '12 oz', precio: 3.00 }, { label: '16 oz', precio: 3.50 }, { label: '24 oz', precio: 4.50 }],
+          permiteShot: true
+        },
+        {
+          id: 'tb-8', cat: 'true-brew', prepTipo: 'al-momento', prepEtiqueta: 'Hecho al momento', marca: 'True Brew', nombre: 'Bebida Refrescante Voltaje',
+          desc: 'La Chispa, Fuego Tropical, Isla Voltaje, Costa Negra o Colada Negra',
+          opciones: [{ label: '12 oz', precio: 2.00 }, { label: '16 oz', precio: 3.00 }, { label: '24 oz', precio: 4.00 }],
+          permiteShot: true
+        }
+      ];
+
+      let carrito = [];
+      let categoriaActiva = 'todos';
+      let preparacionActiva = 'todos';
+
+      function setEstado(texto, esError = false) {
+        const msg = document.getElementById('msgEstado');
+        if (!msg) return;
+        msg.textContent = texto;
+        msg.className = esError
+          ? 'text-red-400 text-center font-medium min-h-[18px]'
+          : 'text-emerald-400 text-center font-medium min-h-[18px]';
+      }
+
+      function actualizarGuiaRetiro() {
+        const guia = document.getElementById('guiaHoraRecogida');
+        if (!guia) return;
+
+        if (!carrito.length) {
+          guia.textContent = 'Tip de retiro: si pides ítems "Hecho al momento", calcula 15–25 min antes de pasar.';
+          return;
+        }
+
+        const tieneAlMomento = carrito.some((i) => i.prepTipo === 'al-momento');
+        if (tieneAlMomento) {
+          guia.textContent = 'Tu orden incluye ítems "Hecho al momento": te sugerimos pasar en 20–30 min o indicar tu hora exacta.';
+        } else {
+          guia.textContent = 'Tu orden es "Listo / Listo rápido": ideal para retiro ágil en 10–15 min o a la hora que indiques.';
+        }
+      }
+
+      function renderMenu() {
+        const grid = document.getElementById('gridMenu');
+        if (!grid) return;
+
+        const filtrados = PRODUCTOS.filter((p) => {
+          const coincideCat = categoriaActiva === 'todos' || p.cat === categoriaActiva;
+          const coincidePrep = preparacionActiva === 'todos' || p.prepTipo === preparacionActiva;
+          return coincideCat && coincidePrep;
+        });
+
+        if (!filtrados.length) {
+          grid.innerHTML = '<div class="sm:col-span-2 card-surface rounded-2xl p-6 text-center text-xs text-zinc-400">No hay productos que coincidan con este filtro de categoría y preparación.</div>';
+          return;
+        }
+
+        grid.innerHTML = filtrados.map((prod) => {
+          const selectOpciones = prod.opciones.map((op, idx) =>
+            `<option value="${idx}">${op.label} — $${op.precio.toFixed(2)}</option>`
+          ).join('');
+
+          const shotHtml = prod.permiteShot ? `
+            <select id="shot-${prod.id}" class="w-full px-3 py-2 rounded-xl bg-zinc-900 border border-white/15 text-xs text-zinc-200">
+              <option value="0">Sin extra shot de energía</option>
+              <option value="0.99">+ 1 Shot de energía (+$0.99)</option>
+              <option value="2.00">+ 2 Shots de energía (+$2.00)</option>
+            </select>
+          ` : '';
+
+          const badgeMarca = prod.marca === 'True Brew'
+            ? 'bg-red-950/80 text-red-300 border-red-700/40'
+            : 'bg-emerald-950/80 text-emerald-300 border-emerald-700/40';
+
+          const badgePrep = prod.prepTipo === 'listo'
+            ? 'bg-cyan-950/80 text-cyan-300 border-cyan-700/40'
+            : 'bg-amber-950/80 text-amber-300 border-amber-700/40';
+
+          const btnClase = prod.marca === 'True Brew' ? 'btn-primary' : 'btn-healthy';
+
+          return `
+            <div class="card-surface rounded-2xl p-4 flex flex-col justify-between gap-3">
+              <div class="space-y-1.5">
+                <div class="flex items-center justify-between gap-2 flex-wrap">
+                  <div class="flex items-center gap-1.5 flex-wrap">
+                    <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded border ${badgeMarca}">${prod.marca}</span>
+                    <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded border ${badgePrep}">${prod.prepEtiqueta}</span>
+                  </div>
+                  <span class="text-xs font-bold text-emerald-400">Desde $${prod.opciones[0].precio.toFixed(2)}</span>
+                </div>
+                <h3 class="font-bold text-white text-base leading-snug">${prod.nombre}</h3>
+                <p class="text-xs text-zinc-400 leading-relaxed">${prod.desc}</p>
+              </div>
+
+              <div class="space-y-2 pt-1">
+                <select id="op-${prod.id}" class="w-full px-3 py-2 rounded-xl bg-zinc-900 border border-white/15 text-xs text-white">
+                  ${selectOpciones}
+                </select>
+                ${shotHtml}
+                <input id="nota-${prod.id}" type="text" placeholder="Sabor o detalle (ej. pollo, sin hielo...)" class="w-full px-3 py-2 rounded-xl bg-zinc-900/80 border border-white/10 text-xs text-zinc-200" />
+                <button type="button" data-add-id="${prod.id}" class="btn-add-prod w-full py-2.5 rounded-xl text-xs font-black text-white ${btnClase}">
+                  + Agregar para llevar
+                </button>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        grid.querySelectorAll('.btn-add-prod').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            agregarAlCarrito(btn.getAttribute('data-add-id'));
+          });
+        });
+      }
+
+      function agregarAlCarrito(prodId) {
+        try {
+          const prod = PRODUCTOS.find((p) => p.id === prodId);
+          if (!prod) return;
+
+          const opEl = document.getElementById(`op-${prod.id}`);
+          const opIdx = opEl ? Number(opEl.value || 0) : 0;
+          const opcion = prod.opciones[opIdx] || prod.opciones[0];
+
+          const shotEl = document.getElementById(`shot-${prod.id}`);
+          const shotPrecio = shotEl ? Number(shotEl.value || 0) : 0;
+          const shotTexto = shotPrecio === 0.99 ? ' + 1 Shot Energía' : shotPrecio === 2 ? ' + 2 Shots Energía' : '';
+
+          const notaEl = document.getElementById(`nota-${prod.id}`);
+          const nota = notaEl ? notaEl.value.trim() : '';
+
+          const precioUnitario = Number((opcion.precio + shotPrecio).toFixed(2));
+          const detalle = `${opcion.label}${shotTexto}${nota ? ` (${nota})` : ''}`;
+
+          const existente = carrito.find((item) =>
+            item.nombre === prod.nombre &&
+            item.detalle === detalle &&
+            item.prepEtiqueta === prod.prepEtiqueta
+          );
+
+          if (existente) {
+            existente.cantidad += 1;
+          } else {
+            carrito.push({
+              nombre: prod.nombre,
+              marca: prod.marca,
+              prepTipo: prod.prepTipo,
+              prepEtiqueta: prod.prepEtiqueta,
+              detalle,
+              precioUnitario,
+              cantidad: 1
+            });
+          }
+
+          if (notaEl) notaEl.value = '';
+          setEstado(`Agregado (${prod.prepEtiqueta}): ${prod.nombre}`);
+          renderCarrito();
+        } catch (err) {
+          console.error('Error al agregar al carrito:', err);
+          setEstado('No se pudo agregar el producto.', true);
+        }
+      }
+
+      function cambiarCantidad(index, delta) {
+        if (!carrito[index]) return;
+        carrito[index].cantidad += delta;
+        if (carrito[index].cantidad <= 0) {
+          carrito.splice(index, 1);
+        }
+        renderCarrito();
+      }
+
+      function renderCarrito() {
+        const cont = document.getElementById('listaCarrito');
+        const totalEl = document.getElementById('lblTotal');
+        const badgeMovil = document.getElementById('badgeMovil');
+
+        actualizarGuiaRetiro();
+
+        if (!cont || !totalEl) return;
+
+        if (!carrito.length) {
+          cont.innerHTML = '<p class="text-xs text-zinc-400 italic py-4 text-center">Aún no has agregado productos a tu pedido.</p>';
+          totalEl.textContent = '$0.00';
+          if (badgeMovil) badgeMovil.textContent = '0 · $0.00';
+          return;
+        }
+
+        let total = 0;
+        let totalUnidades = 0;
+
+        cont.innerHTML = carrito.map((item, idx) => {
+          const subtotal = item.precioUnitario * item.cantidad;
+          total += subtotal;
+          totalUnidades += item.cantidad;
+
+          const prepBadgeColor = item.prepTipo === 'listo'
+            ? 'text-cyan-300 bg-cyan-950/70 border-cyan-700/40'
+            : 'text-amber-300 bg-amber-950/70 border-amber-700/40';
+
+          return `
+            <div class="bg-zinc-900/90 border border-white/10 rounded-xl p-3 flex items-start justify-between gap-2 text-xs">
+              <div class="min-w-0">
+                <div class="flex items-center gap-1.5 flex-wrap">
+                  <span class="font-bold text-white truncate">${item.nombre}</span>
+                  <span class="text-[10px] font-bold px-1.5 py-0.5 rounded border ${prepBadgeColor}">${item.prepEtiqueta}</span>
+                </div>
+                <div class="text-[11px] text-zinc-400 mt-0.5">${item.detalle}</div>
+                <div class="text-emerald-400 font-bold mt-1">$${subtotal.toFixed(2)}</div>
+              </div>
+              <div class="flex items-center gap-1.5 shrink-0">
+                <button type="button" data-qty-idx="${idx}" data-delta="-1" class="btn-qty w-7 h-7 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-white font-bold">-</button>
+                <span class="font-bold text-white px-1">${item.cantidad}</span>
+                <button type="button" data-qty-idx="${idx}" data-delta="1" class="btn-qty w-7 h-7 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-white font-bold">+</button>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        cont.querySelectorAll('.btn-qty').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            cambiarCantidad(Number(btn.getAttribute('data-qty-idx')), Number(btn.getAttribute('data-delta')));
+          });
+        });
+
+        totalEl.textContent = `$${total.toFixed(2)}`;
+        if (badgeMovil) badgeMovil.textContent = `${totalUnidades} · $${total.toFixed(2)}`;
+      }
+
+      function construirResumenPedido() {
+        const nombre = document.getElementById('cliNombre').value.trim();
+        const telefono = document.getElementById('cliTelefono').value.trim();
+        const hora = document.getElementById('horaRecogida').value.trim();
+        const pago = document.getElementById('medioPago').value;
+        const billete = document.getElementById('montoBillete').value.trim();
+        const notas = document.getElementById('notasPedido').value.trim();
+
+        const total = carrito.reduce((acc, i) => acc + (i.precioUnitario * i.cantidad), 0);
+
+        const lineasItems = carrito.map((i) =>
+          `• ${i.cantidad}x ${i.nombre} [${i.prepEtiqueta}] — ${i.detalle} ($${(i.precioUnitario * i.cantidad).toFixed(2)})`
+        ).join('\n');
+
+        return [
+          `*PEDIDO PARA LLEVAR — HEALTHY CORNER + TRUE BREW*`,
+          `📍 *Retiro:* Calle Ernesto Pérez Balladares, diagonal al Hospital Chiriquí, David`,
+          `👤 *Cliente:* ${nombre || 'No indicado'}${telefono ? ` (${telefono})` : ''}`,
+          `⏰ *Hora en que pasa:* ${hora || 'Por coordinar'}`,
+          `💳 *Medio de pago:* ${pago}${pago === 'Efectivo al retirar' && billete ? ` (Billete: ${billete})` : ''}`,
+          ``,
+          `*Detalle del pedido:*`,
+          lineasItems,
+          ``,
+          `💰 *Total estimado:* $${total.toFixed(2)}`,
+          notas ? `📝 *Notas:* ${notas}` : ''
+        ].filter(Boolean).join('\n');
+      }
+
+      document.querySelectorAll('.filtro-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          categoriaActiva = btn.getAttribute('data-cat');
+          document.querySelectorAll('.filtro-btn').forEach((b) => {
+            b.className = 'filtro-btn px-4 py-2.5 rounded-xl text-xs font-bold bg-zinc-800 text-zinc-200 hover:bg-zinc-700';
+          });
+          btn.className = 'filtro-btn px-4 py-2.5 rounded-xl text-xs font-bold bg-white text-zinc-950 shadow';
+          renderMenu();
+        });
+      });
+
+      document.querySelectorAll('.prep-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          preparacionActiva = btn.getAttribute('data-prep');
+          document.querySelectorAll('.prep-btn').forEach((b) => {
+            b.className = 'prep-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-zinc-800 text-zinc-200 hover:bg-zinc-700 border border-white/10';
+          });
+          btn.className = 'prep-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-amber-400 text-zinc-950 shadow';
+          renderMenu();
+        });
+      });
+
+      document.querySelectorAll('.preset-hora').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const inputHora = document.getElementById('horaRecogida');
+          if (inputHora) inputHora.value = btn.getAttribute('data-hora');
+        });
+      });
+
+      const medioPagoEl = document.getElementById('medioPago');
+      if (medioPagoEl) {
+        medioPagoEl.addEventListener('change', (e) => {
+          const campoEf = document.getElementById('campoEfectivo');
+          if (!campoEf) return;
+          if (e.target.value === 'Efectivo al retirar') {
+            campoEf.classList.remove('hidden');
+          } else {
+            campoEf.classList.add('hidden');
+          }
+        });
+      }
+
+      const btnLimpiar = document.getElementById('btnLimpiarCarrito');
+      if (btnLimpiar) {
+        btnLimpiar.addEventListener('click', () => {
+          carrito = [];
+          setEstado('Carrito vaciado.');
+          renderCarrito();
+        });
+      }
+
+      const btnMovil = document.getElementById('btnAbrirCarritoMovil');
+      if (btnMovil) {
+        btnMovil.addEventListener('click', () => {
+          const panel = document.getElementById('panelPedido');
+          if (panel) panel.scrollIntoView({ behavior: 'smooth' });
+        });
+      }
+
+      const btnCopiar = document.getElementById('btnCopiarResumen');
+      if (btnCopiar) {
+        btnCopiar.addEventListener('click', () => {
+          if (!carrito.length) {
+            setEstado('Agrega al menos un producto primero.', true);
+            return;
+          }
+          const texto = construirResumenPedido();
+          try {
+            const temp = document.createElement('textarea');
+            temp.value = texto;
+            document.body.appendChild(temp);
+            temp.select();
+            document.execCommand('copy');
+            document.body.removeChild(temp);
+            setEstado('Resumen copiado al portapapeles.');
+          } catch (_) {
+            setEstado('No se pudo copiar automáticamente.', true);
+          }
+        });
+      }
+
+      const formCheckout = document.getElementById('formCheckout');
+      if (formCheckout) {
+        formCheckout.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const nombreEl = document.getElementById('cliNombre');
+          const nombre = nombreEl ? nombreEl.value.trim() : '';
+
+          if (!carrito.length) {
+            setEstado('Agrega al menos un producto a tu pedido.', true);
+            return;
+          }
+          if (!nombre) {
+            setEstado('Por favor escribe tu nombre para identificar el pedido.', true);
+            return;
+          }
+
+          const mensaje = construirResumenPedido();
+          const url = `https://wa.me/${WHATSAPP_NUMERO}?text=${encodeURIComponent(mensaje)}`;
+          setEstado('Pedido listo para enviar por WhatsApp al +507 6002-4647.');
+          window.open(url, '_blank', 'noopener,noreferrer');
+        });
+      }
+
+      renderMenu();
+      renderCarrito();
+    })();
+  </script>
+</body>
+</html>
+
