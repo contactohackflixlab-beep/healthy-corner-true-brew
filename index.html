@@ -59,10 +59,20 @@
           <p class="text-xs text-emerald-100/70 truncate">Para Llevar (Pickup) · Calle Ernesto Pérez Balladares, diagonal al Hospital Chiriquí, David</p>
         </div>
       </div>
-      <button id="btnAbrirCarritoMovil" type="button" class="lg:hidden btn-primary px-4 py-2.5 rounded-xl text-xs font-bold text-white flex items-center gap-2 shadow">
-        <span>Mi Pedido</span>
-        <span id="badgeMovil" class="bg-white/20 px-2 py-0.5 rounded-full">0 · $0.00</span>
-      </button>
+      <div class="flex items-center gap-2 shrink-0">
+        <a
+          href="https://waze.com/ul/hd1mrunz69"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl text-xs font-bold bg-[#0b2317] hover:bg-[#123724] text-emerald-200 border border-emerald-300/20 transition"
+        >
+          <span>📍 Ir con Waze</span>
+        </a>
+        <button id="btnAbrirCarritoMovil" type="button" class="lg:hidden btn-primary px-4 py-2.5 rounded-xl text-xs font-bold text-white flex items-center gap-2 shadow">
+          <span>Mi Pedido</span>
+          <span id="badgeMovil" class="bg-white/20 px-2 py-0.5 rounded-full">0 · $0.00</span>
+        </button>
+      </div>
     </div>
   </header>
 
@@ -80,10 +90,20 @@
           Armá tu orden de <strong class="text-emerald-300">Healthy Corner</strong>, cafés y bebidas refrescantes de <strong class="text-red-300">True Brew</strong>, elegí tu <strong>medio de pago</strong> y avisanos <strong>a qué hora pasás</strong>.
         </p>
       </div>
-      <div class="text-xs text-emerald-50/85 bg-[#071810]/70 p-4 rounded-xl border border-emerald-300/15 space-y-1.5 lg:max-w-sm w-full shrink-0">
+      <div class="text-xs text-emerald-50/85 bg-[#071810]/70 p-4 rounded-xl border border-emerald-300/15 space-y-2 lg:max-w-sm w-full shrink-0">
         <div><strong class="text-white">Punto de retiro:</strong> Calle Ernesto Pérez Balladares, diagonal al Hospital Chiriquí, David, Chiriquí</div>
         <div><strong class="text-white">WhatsApp / Tel:</strong> +507 6002-4647</div>
         <div><strong class="text-white">Instagram:</strong> @thehealthycornerdavid · @truebrewdrinks</div>
+        <div class="pt-1">
+          <a
+            href="https://waze.com/ul/hd1mrunz69"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="w-full py-2.5 px-3 rounded-xl bg-emerald-700/80 hover:bg-emerald-600 text-white font-bold flex items-center justify-center gap-1.5 border border-emerald-400/30 transition"
+          >
+            <span>🚗 Usa Waze para llegar a True Brew + Healthy Corner</span>
+          </a>
+        </div>
       </div>
     </div>
   </section>
@@ -193,7 +213,12 @@
   <footer class="border-t border-emerald-300/15 bg-[#06140c]/85 py-6 px-4 text-xs text-emerald-100/70">
     <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
       <span><strong>HEALTHY CORNER + TRUE BREW</strong> · Pedidos Para Llevar en David, Chiriquí</span>
-      <span>WhatsApp: +507 6002-4647 · @thehealthycornerdavid · @truebrewdrinks</span>
+      <div class="flex flex-wrap items-center gap-3">
+        <a href="https://waze.com/ul/hd1mrunz69" target="_blank" rel="noopener noreferrer" class="text-emerald-300 hover:text-white underline font-semibold">
+          Waze: True Brew + Healthy Corner
+        </a>
+        <span>· WhatsApp: +507 6002-4647 · @thehealthycornerdavid · @truebrewdrinks</span>
+      </div>
     </div>
   </footer>
 
@@ -548,6 +573,7 @@
         return [
           `*PEDIDO PARA LLEVAR — HEALTHY CORNER + TRUE BREW*`,
           `📍 *Retiro:* Calle Ernesto Pérez Balladares, diagonal al Hospital Chiriquí, David`,
+          `🗺️ *Waze:* https://waze.com/ul/hd1mrunz69`,
           `👤 *Cliente:* ${nombre || 'No indicado'}${telefono ? ` (${telefono})` : ''}`,
           `⏰ *Hora en que pasa:* ${hora || 'Por coordinar'}`,
           `💳 *Medio de pago:* ${pago}${pago === 'Efectivo al retirar' && billete ? ` (Billete: ${billete})` : ''}`,
