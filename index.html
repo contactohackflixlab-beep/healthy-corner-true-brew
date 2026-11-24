@@ -11,13 +11,13 @@
   <style>
     body {
       font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background-color: #111317;
-      color: #f4f4f5;
+      background: radial-gradient(circle at top, #143624 0%, #0d2418 48%, #07160e 100%);
+      color: #f4f7f5;
     }
     .card-surface {
-      background: linear-gradient(150deg, rgba(28, 31, 38, 0.96), rgba(19, 22, 27, 0.98));
-      border: 1px solid rgba(255, 255, 255, 0.09);
-      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
+      background: linear-gradient(150deg, rgba(18, 46, 31, 0.95), rgba(10, 28, 19, 0.98));
+      border: 1px solid rgba(134, 239, 172, 0.14);
+      box-shadow: 0 12px 28px rgba(2, 14, 8, 0.36);
     }
     .btn-primary {
       background: linear-gradient(135deg, #c81e1e, #881313);
@@ -27,27 +27,27 @@
       background: linear-gradient(135deg, #e02424, #9f1239);
     }
     .btn-healthy {
-      background: linear-gradient(135deg, #15803d, #14532d);
+      background: linear-gradient(135deg, #16a34a, #15803d);
       transition: all 0.2s ease;
     }
     .btn-healthy:hover {
-      background: linear-gradient(135deg, #16a34a, #166534);
+      background: linear-gradient(135deg, #22c55e, #16a34a);
     }
   </style>
 </head>
 <body class="min-h-screen flex flex-col overflow-x-hidden">
   <!-- Encabezado principal -->
-  <header class="sticky top-0 z-40 bg-[#111317]/95 backdrop-blur border-b border-white/10">
+  <header class="sticky top-0 z-40 bg-[#0b1f14]/95 backdrop-blur border-b border-emerald-300/15">
     <div class="max-w-7xl mx-auto px-4 py-3.5 flex flex-wrap items-center justify-between gap-3">
       <div class="flex items-center gap-3 min-w-0">
-        <div class="h-12 w-20 rounded-xl bg-zinc-900 flex items-center justify-center overflow-hidden shadow-lg border border-white/15 shrink-0">
+        <div class="h-12 w-20 rounded-xl bg-[#07160e] flex items-center justify-center overflow-hidden shadow-lg border border-emerald-300/20 shrink-0">
           <img
             src="logo.jpg.jpeg"
             alt="Logo Healthy Corner + True Brew"
             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
             class="w-full h-full object-cover object-center"
           />
-          <span class="hidden w-full h-full bg-gradient-to-br from-emerald-600 via-zinc-900 to-red-700 items-center justify-center font-black text-white text-xs">
+          <span class="hidden w-full h-full bg-gradient-to-br from-emerald-600 via-emerald-950 to-red-700 items-center justify-center font-black text-white text-xs">
             HC·TB
           </span>
         </div>
@@ -56,7 +56,7 @@
             <span class="font-black text-lg sm:text-xl tracking-tight text-white">HEALTHY CORNER</span>
             <span class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-red-950/90 text-red-300 border border-red-700/40">+ TRUE BREW</span>
           </div>
-          <p class="text-xs text-zinc-400 truncate">Para Llevar (Pickup) · Calle Ernesto Pérez Balladares, diagonal al Hospital Chiriquí, David</p>
+          <p class="text-xs text-emerald-100/70 truncate">Para Llevar (Pickup) · Calle Ernesto Pérez Balladares, diagonal al Hospital Chiriquí, David</p>
         </div>
       </div>
       <button id="btnAbrirCarritoMovil" type="button" class="lg:hidden btn-primary px-4 py-2.5 rounded-xl text-xs font-bold text-white flex items-center gap-2 shadow">
@@ -70,17 +70,17 @@
   <section class="max-w-7xl w-full mx-auto px-4 pt-6 pb-5">
     <div class="card-surface rounded-2xl p-6 md:p-8 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
       <div class="max-w-2xl space-y-2.5">
-        <span class="inline-block text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-emerald-950/80 text-emerald-300 border border-emerald-700/40">
+        <span class="inline-block text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-emerald-900/70 text-emerald-200 border border-emerald-400/30">
           Ordena aquí · Pasa a recoger sin fila
         </span>
         <h1 class="text-2xl sm:text-4xl font-black text-white leading-tight">
           Tu pedido listo justo cuando vas pasando.
         </h1>
-        <p class="text-sm text-zinc-300 leading-relaxed">
-          Armá tu orden de <strong class="text-emerald-400">Healthy Corner</strong>, cafés y bebidas refrescantes de <strong class="text-red-400">True Brew</strong>, elegí tu <strong>medio de pago</strong> y avisanos <strong>a qué hora pasás</strong>.
+        <p class="text-sm text-emerald-50/85 leading-relaxed">
+          Armá tu orden de <strong class="text-emerald-300">Healthy Corner</strong>, cafés y bebidas refrescantes de <strong class="text-red-300">True Brew</strong>, elegí tu <strong>medio de pago</strong> y avisanos <strong>a qué hora pasás</strong>.
         </p>
       </div>
-      <div class="text-xs text-zinc-300 bg-black/35 p-4 rounded-xl border border-white/10 space-y-1.5 lg:max-w-sm w-full shrink-0">
+      <div class="text-xs text-emerald-50/85 bg-[#071810]/70 p-4 rounded-xl border border-emerald-300/15 space-y-1.5 lg:max-w-sm w-full shrink-0">
         <div><strong class="text-white">Punto de retiro:</strong> Calle Ernesto Pérez Balladares, diagonal al Hospital Chiriquí, David, Chiriquí</div>
         <div><strong class="text-white">WhatsApp / Tel:</strong> +507 6002-4647</div>
         <div><strong class="text-white">Instagram:</strong> @thehealthycornerdavid · @truebrewdrinks</div>
@@ -94,16 +94,16 @@
     <div class="lg:col-span-7 xl:col-span-8 space-y-6 min-w-0">
       <div class="space-y-3">
         <div class="flex flex-wrap gap-2" id="filtrosCategoria">
-          <button type="button" data-cat="todos" class="filtro-btn px-4 py-2.5 rounded-xl text-xs font-bold bg-white text-zinc-950 shadow">Todo el Menú</button>
-          <button type="button" data-cat="healthy" class="filtro-btn px-4 py-2.5 rounded-xl text-xs font-bold bg-zinc-800 text-zinc-200 hover:bg-zinc-700">Healthy Corner (Comidas)</button>
-          <button type="button" data-cat="bebidas-hc" class="filtro-btn px-4 py-2.5 rounded-xl text-xs font-bold bg-zinc-800 text-zinc-200 hover:bg-zinc-700">Jugos y Batidos</button>
-          <button type="button" data-cat="true-brew" class="filtro-btn px-4 py-2.5 rounded-xl text-xs font-bold bg-zinc-800 text-zinc-200 hover:bg-zinc-700">True Brew (Café y Refrescantes)</button>
+          <button type="button" data-cat="todos" class="filtro-btn px-4 py-2.5 rounded-xl text-xs font-bold bg-emerald-300 text-[#071810] shadow">Todo el Menú</button>
+          <button type="button" data-cat="healthy" class="filtro-btn px-4 py-2.5 rounded-xl text-xs font-bold bg-[#0b2317] text-emerald-100 hover:bg-[#123724] border border-emerald-300/15">Healthy Corner (Comidas)</button>
+          <button type="button" data-cat="bebidas-hc" class="filtro-btn px-4 py-2.5 rounded-xl text-xs font-bold bg-[#0b2317] text-emerald-100 hover:bg-[#123724] border border-emerald-300/15">Jugos y Batidos</button>
+          <button type="button" data-cat="true-brew" class="filtro-btn px-4 py-2.5 rounded-xl text-xs font-bold bg-[#0b2317] text-emerald-100 hover:bg-[#123724] border border-emerald-300/15">True Brew (Café y Refrescantes)</button>
         </div>
         <div class="flex flex-wrap items-center gap-2" id="filtrosPreparacion">
-          <span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 mr-1">Preparación:</span>
+          <span class="text-[11px] font-semibold uppercase tracking-wider text-emerald-200/70 mr-1">Preparación:</span>
           <button type="button" data-prep="todos" class="prep-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-amber-400 text-zinc-950 shadow">Todos</button>
-          <button type="button" data-prep="listo" class="prep-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-zinc-800 text-zinc-200 hover:bg-zinc-700 border border-white/10">Listo / Listo rápido</button>
-          <button type="button" data-prep="al-momento" class="prep-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-zinc-800 text-zinc-200 hover:bg-zinc-700 border border-white/10">Hecho al momento</button>
+          <button type="button" data-prep="listo" class="prep-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-[#0b2317] text-emerald-100 hover:bg-[#123724] border border-emerald-300/15">Listo / Listo rápido</button>
+          <button type="button" data-prep="al-momento" class="prep-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-[#0b2317] text-emerald-100 hover:bg-[#123724] border border-emerald-300/15">Hecho al momento</button>
         </div>
       </div>
       <div id="gridMenu" class="grid sm:grid-cols-2 gap-4"></div>
@@ -112,55 +112,55 @@
     <!-- Columna derecha: Orden para llevar, hora de recogida y pago -->
     <aside id="panelPedido" class="lg:col-span-5 xl:col-span-4 min-w-0">
       <div class="card-surface rounded-2xl p-5 sm:p-6 lg:sticky lg:top-20 space-y-5">
-        <div class="flex items-center justify-between border-b border-white/10 pb-3">
+        <div class="flex items-center justify-between border-b border-emerald-300/15 pb-3">
           <div>
-            <span class="text-[11px] font-bold uppercase tracking-wider text-red-400">Modalidad Para Llevar</span>
+            <span class="text-[11px] font-bold uppercase tracking-wider text-red-300">Modalidad Para Llevar</span>
             <h2 class="text-xl font-black text-white">Tu Orden</h2>
           </div>
-          <button id="btnLimpiarCarrito" type="button" class="text-xs text-zinc-400 hover:text-white underline">Vaciar</button>
+          <button id="btnLimpiarCarrito" type="button" class="text-xs text-emerald-200/70 hover:text-white underline">Vaciar</button>
         </div>
 
         <!-- Lista de productos agregados -->
         <div id="listaCarrito" class="space-y-3 max-h-72 overflow-y-auto pr-1">
-          <p class="text-xs text-zinc-400 italic py-4 text-center">Aún no has agregado productos a tu pedido.</p>
+          <p class="text-xs text-emerald-100/65 italic py-4 text-center">Aún no has agregado productos a tu pedido.</p>
         </div>
 
         <!-- Total calculado -->
-        <div class="border-t border-white/10 pt-3 flex items-center justify-between text-base font-black text-white">
+        <div class="border-t border-emerald-300/15 pt-3 flex items-center justify-between text-base font-black text-white">
           <span>Total estimado</span>
-          <span id="lblTotal" class="text-xl text-emerald-400">$0.00</span>
+          <span id="lblTotal" class="text-xl text-emerald-300">$0.00</span>
         </div>
 
         <!-- Formulario de retiro, hora y pago -->
-        <form id="formCheckout" class="space-y-3.5 border-t border-white/10 pt-4 text-xs" novalidate>
+        <form id="formCheckout" class="space-y-3.5 border-t border-emerald-300/15 pt-4 text-xs" novalidate>
           <div class="grid sm:grid-cols-2 gap-3">
             <div>
-              <label for="cliNombre" class="block text-zinc-300 font-semibold mb-1">Tu nombre *</label>
-              <input id="cliNombre" type="text" placeholder="Ej. Sofía Morales" class="w-full px-3 py-2.5 rounded-xl bg-zinc-900 border border-white/15 text-white" />
+              <label for="cliNombre" class="block text-emerald-100 font-semibold mb-1">Tu nombre *</label>
+              <input id="cliNombre" type="text" placeholder="Ej. Sofía Morales" class="w-full px-3 py-2.5 rounded-xl bg-[#071810] border border-emerald-300/20 text-white placeholder:text-emerald-100/40" />
             </div>
             <div>
-              <label for="cliTelefono" class="block text-zinc-300 font-semibold mb-1">Tu teléfono / WhatsApp</label>
-              <input id="cliTelefono" type="tel" placeholder="Ej. 6XXX-XXXX" class="w-full px-3 py-2.5 rounded-xl bg-zinc-900 border border-white/15 text-white" />
+              <label for="cliTelefono" class="block text-emerald-100 font-semibold mb-1">Tu teléfono / WhatsApp</label>
+              <input id="cliTelefono" type="tel" placeholder="Ej. 6XXX-XXXX" class="w-full px-3 py-2.5 rounded-xl bg-[#071810] border border-emerald-300/20 text-white placeholder:text-emerald-100/40" />
             </div>
           </div>
 
           <div>
-            <label for="horaRecogida" class="block text-zinc-300 font-semibold mb-1">¿A qué hora pasas a recoger? *</label>
-            <p id="guiaHoraRecogida" class="text-[11px] text-amber-300/90 mb-2">Tip de retiro: si pides ítems "Hecho al momento", calcula 15–25 min antes de pasar.</p>
+            <label for="horaRecogida" class="block text-emerald-100 font-semibold mb-1">¿A qué hora pasas a recoger? *</label>
+            <p id="guiaHoraRecogida" class="text-[11px] text-amber-300/95 mb-2">Tip de retiro: si pides ítems "Hecho al momento", calcula 15–25 min antes de pasar.</p>
             <div class="grid grid-cols-2 gap-2 mb-2">
-              <button type="button" data-hora="Lo antes posible (15 - 20 min)" class="preset-hora px-3 py-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-white font-semibold border border-white/10 text-left">
+              <button type="button" data-hora="Lo antes posible (15 - 20 min)" class="preset-hora px-3 py-2 rounded-xl bg-[#0b2317] hover:bg-[#123724] text-white font-semibold border border-emerald-300/15 text-left">
                 Lo antes posible (15-20 min)
               </button>
-              <button type="button" data-hora="En 30 minutos" class="preset-hora px-3 py-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-white font-semibold border border-white/10 text-left">
+              <button type="button" data-hora="En 30 minutos" class="preset-hora px-3 py-2 rounded-xl bg-[#0b2317] hover:bg-[#123724] text-white font-semibold border border-emerald-300/15 text-left">
                 En 30 minutos
               </button>
             </div>
-            <input id="horaRecogida" type="text" value="Lo antes posible (15 - 20 min)" placeholder="Ej. 12:15 PM o en 25 min" class="w-full px-3 py-2.5 rounded-xl bg-zinc-900 border border-white/15 text-white" />
+            <input id="horaRecogida" type="text" value="Lo antes posible (15 - 20 min)" placeholder="Ej. 12:15 PM o en 25 min" class="w-full px-3 py-2.5 rounded-xl bg-[#071810] border border-emerald-300/20 text-white placeholder:text-emerald-100/40" />
           </div>
 
           <div>
-            <label for="medioPago" class="block text-zinc-300 font-semibold mb-1">Medio de pago *</label>
-            <select id="medioPago" class="w-full px-3 py-2.5 rounded-xl bg-zinc-900 border border-white/15 text-white">
+            <label for="medioPago" class="block text-emerald-100 font-semibold mb-1">Medio de pago *</label>
+            <select id="medioPago" class="w-full px-3 py-2.5 rounded-xl bg-[#071810] border border-emerald-300/20 text-white">
               <option value="Yappy">Yappy</option>
               <option value="Efectivo al retirar">Efectivo al retirar</option>
               <option value="Transferencia / ACH">Transferencia / ACH</option>
@@ -169,19 +169,19 @@
           </div>
 
           <div id="campoEfectivo" class="hidden">
-            <label for="montoBillete" class="block text-zinc-300 font-semibold mb-1">¿Pagas con billete de cuánto? (para vuelto)</label>
-            <input id="montoBillete" type="text" placeholder="Ej. Billete de $20" class="w-full px-3 py-2.5 rounded-xl bg-zinc-900 border border-white/15 text-white" />
+            <label for="montoBillete" class="block text-emerald-100 font-semibold mb-1">¿Pagas con billete de cuánto? (para vuelto)</label>
+            <input id="montoBillete" type="text" placeholder="Ej. Billete de $20" class="w-full px-3 py-2.5 rounded-xl bg-[#071810] border border-emerald-300/20 text-white placeholder:text-emerald-100/40" />
           </div>
 
           <div>
-            <label for="notasPedido" class="block text-zinc-300 font-semibold mb-1">Notas generales del pedido (opcional)</label>
-            <input id="notasPedido" type="text" placeholder="Ej. Empaque para llevar, sin picante, etc." class="w-full px-3 py-2.5 rounded-xl bg-zinc-900 border border-white/15 text-white" />
+            <label for="notasPedido" class="block text-emerald-100 font-semibold mb-1">Notas generales del pedido (opcional)</label>
+            <input id="notasPedido" type="text" placeholder="Ej. Empaque para llevar, sin picante, etc." class="w-full px-3 py-2.5 rounded-xl bg-[#071810] border border-emerald-300/20 text-white placeholder:text-emerald-100/40" />
           </div>
 
           <button type="submit" class="w-full py-3.5 rounded-xl font-black text-sm text-white btn-primary shadow-lg">
             Enviar Pedido por WhatsApp (6002-4647)
           </button>
-          <button id="btnCopiarResumen" type="button" class="w-full py-2.5 rounded-xl font-bold text-xs text-zinc-200 bg-zinc-800 hover:bg-zinc-700 border border-white/10">
+          <button id="btnCopiarResumen" type="button" class="w-full py-2.5 rounded-xl font-bold text-xs text-emerald-100 bg-[#0b2317] hover:bg-[#123724] border border-emerald-300/20">
             Copiar resumen del pedido
           </button>
           <p id="msgEstado" class="text-amber-300 text-center font-medium min-h-[18px]"></p>
@@ -190,7 +190,7 @@
     </aside>
   </main>
 
-  <footer class="border-t border-white/10 bg-black/45 py-6 px-4 text-xs text-zinc-400">
+  <footer class="border-t border-emerald-300/15 bg-[#06140c]/85 py-6 px-4 text-xs text-emerald-100/70">
     <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
       <span><strong>HEALTHY CORNER + TRUE BREW</strong> · Pedidos Para Llevar en David, Chiriquí</span>
       <span>WhatsApp: +507 6002-4647 · @thehealthycornerdavid · @truebrewdrinks</span>
@@ -310,8 +310,8 @@
         if (!msg) return;
         msg.textContent = texto;
         msg.className = esError
-          ? 'text-red-400 text-center font-medium min-h-[18px]'
-          : 'text-emerald-400 text-center font-medium min-h-[18px]';
+          ? 'text-red-300 text-center font-medium min-h-[18px]'
+          : 'text-emerald-300 text-center font-medium min-h-[18px]';
       }
 
       function actualizarGuiaRetiro() {
@@ -340,13 +340,13 @@
         });
 
         if (!filtrados.length) {
-          grid.innerHTML = '<div class="sm:col-span-2 card-surface rounded-2xl p-6 text-center text-xs text-zinc-400">No hay productos que coincidan con este filtro de categoría y preparación.</div>';
+          grid.innerHTML = '<div class="sm:col-span-2 card-surface rounded-2xl p-6 text-center text-xs text-emerald-100/70">No hay productos que coincidan con este filtro de categoría y preparación.</div>';
           return;
         }
 
         grid.innerHTML = filtrados.map((prod) => {
           const saborHtml = Array.isArray(prod.sabores) && prod.sabores.length ? `
-            <select id="sabor-${prod.id}" aria-label="Elegir sabor de ${prod.nombre}" class="w-full px-3 py-2 rounded-xl bg-zinc-900 border border-white/15 text-xs text-white">
+            <select id="sabor-${prod.id}" aria-label="Elegir sabor de ${prod.nombre}" class="w-full px-3 py-2 rounded-xl bg-[#071810] border border-emerald-300/20 text-xs text-white">
               ${prod.sabores.map((sb) => `<option value="${sb}">Sabor: ${sb}</option>`).join('')}
             </select>
           ` : '';
@@ -356,7 +356,7 @@
           ).join('');
 
           const shotHtml = prod.permiteShot ? `
-            <select id="shot-${prod.id}" class="w-full px-3 py-2 rounded-xl bg-zinc-900 border border-white/15 text-xs text-zinc-200">
+            <select id="shot-${prod.id}" class="w-full px-3 py-2 rounded-xl bg-[#071810] border border-emerald-300/20 text-xs text-emerald-50">
               <option value="0">Sin extra shot de energía</option>
               <option value="0.99">+ 1 Shot de energía (+$0.99)</option>
               <option value="2.00">+ 2 Shots de energía (+$2.00)</option>
@@ -364,19 +364,19 @@
           ` : '';
 
           const badgeMarca = prod.marca === 'True Brew'
-            ? 'bg-red-950/80 text-red-300 border-red-700/40'
-            : 'bg-emerald-950/80 text-emerald-300 border-emerald-700/40';
+            ? 'bg-red-950/85 text-red-300 border-red-700/40'
+            : 'bg-emerald-900/75 text-emerald-200 border-emerald-400/35';
 
           const badgePrep = prod.prepTipo === 'listo'
-            ? 'bg-cyan-950/80 text-cyan-300 border-cyan-700/40'
-            : 'bg-amber-950/80 text-amber-300 border-amber-700/40';
+            ? 'bg-cyan-950/80 text-cyan-200 border-cyan-600/40'
+            : 'bg-amber-950/80 text-amber-200 border-amber-600/40';
 
           const btnClase = prod.marca === 'True Brew' ? 'btn-primary' : 'btn-healthy';
 
           return `
             <div class="card-surface rounded-2xl overflow-hidden flex flex-col justify-between">
               <div>
-                <div class="relative h-44 w-full bg-zinc-900 overflow-hidden border-b border-white/10">
+                <div class="relative h-44 w-full bg-[#071810] overflow-hidden border-b border-emerald-300/15">
                   <img
                     src="${prod.img}"
                     alt="${prod.nombre}"
@@ -391,19 +391,19 @@
                       <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded border ${badgeMarca}">${prod.marca}</span>
                       <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded border ${badgePrep}">${prod.prepEtiqueta}</span>
                     </div>
-                    <span class="text-xs font-bold text-emerald-400">Desde $${prod.opciones[0].precio.toFixed(2)}</span>
+                    <span class="text-xs font-bold text-emerald-300">Desde $${prod.opciones[0].precio.toFixed(2)}</span>
                   </div>
                   <h3 class="font-bold text-white text-base leading-snug">${prod.nombre}</h3>
-                  <p class="text-xs text-zinc-400 leading-relaxed">${prod.desc}</p>
+                  <p class="text-xs text-emerald-100/75 leading-relaxed">${prod.desc}</p>
                 </div>
               </div>
               <div class="p-4 pt-2 space-y-2">
                 ${saborHtml}
-                <select id="op-${prod.id}" class="w-full px-3 py-2 rounded-xl bg-zinc-900 border border-white/15 text-xs text-white">
+                <select id="op-${prod.id}" class="w-full px-3 py-2 rounded-xl bg-[#071810] border border-emerald-300/20 text-xs text-white">
                   ${selectOpciones}
                 </select>
                 ${shotHtml}
-                <input id="nota-${prod.id}" type="text" placeholder="Sabor o detalle (ej. pollo, sin hielo...)" class="w-full px-3 py-2 rounded-xl bg-zinc-900/80 border border-white/10 text-xs text-zinc-200" />
+                <input id="nota-${prod.id}" type="text" placeholder="Sabor o detalle (ej. pollo, sin hielo...)" class="w-full px-3 py-2 rounded-xl bg-[#071810]/85 border border-emerald-300/15 text-xs text-emerald-50 placeholder:text-emerald-100/40" />
                 <button type="button" data-add-id="${prod.id}" class="btn-add-prod w-full py-2.5 rounded-xl text-xs font-black text-white ${btnClase}">
                   + Agregar para llevar
                 </button>
@@ -486,7 +486,7 @@
         if (!cont || !totalEl) return;
 
         if (!carrito.length) {
-          cont.innerHTML = '<p class="text-xs text-zinc-400 italic py-4 text-center">Aún no has agregado productos a tu pedido.</p>';
+          cont.innerHTML = '<p class="text-xs text-emerald-100/65 italic py-4 text-center">Aún no has agregado productos a tu pedido.</p>';
           totalEl.textContent = '$0.00';
           if (badgeMovil) badgeMovil.textContent = '0 · $0.00';
           return;
@@ -500,23 +500,23 @@
           total += subtotal;
           totalUnidades += item.cantidad;
           const prepBadgeColor = item.prepTipo === 'listo'
-            ? 'text-cyan-300 bg-cyan-950/70 border-cyan-700/40'
-            : 'text-amber-300 bg-amber-950/70 border-amber-700/40';
+            ? 'text-cyan-200 bg-cyan-950/75 border-cyan-600/40'
+            : 'text-amber-200 bg-amber-950/75 border-amber-600/40';
 
           return `
-            <div class="bg-zinc-900/90 border border-white/10 rounded-xl p-3 flex items-start justify-between gap-2 text-xs">
+            <div class="bg-[#071810]/90 border border-emerald-300/15 rounded-xl p-3 flex items-start justify-between gap-2 text-xs">
               <div class="min-w-0">
                 <div class="flex items-center gap-1.5 flex-wrap">
                   <span class="font-bold text-white truncate">${item.nombre}</span>
                   <span class="text-[10px] font-bold px-1.5 py-0.5 rounded border ${prepBadgeColor}">${item.prepEtiqueta}</span>
                 </div>
-                <div class="text-[11px] text-zinc-400 mt-0.5">${item.detalle}</div>
-                <div class="text-emerald-400 font-bold mt-1">$${subtotal.toFixed(2)}</div>
+                <div class="text-[11px] text-emerald-100/70 mt-0.5">${item.detalle}</div>
+                <div class="text-emerald-300 font-bold mt-1">$${subtotal.toFixed(2)}</div>
               </div>
               <div class="flex items-center gap-1.5 shrink-0">
-                <button type="button" data-qty-idx="${idx}" data-delta="-1" class="btn-qty w-7 h-7 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-white font-bold">-</button>
+                <button type="button" data-qty-idx="${idx}" data-delta="-1" class="btn-qty w-7 h-7 rounded-lg bg-[#0d2a1b] hover:bg-[#15412b] text-white font-bold border border-emerald-300/15">-</button>
                 <span class="font-bold text-white px-1">${item.cantidad}</span>
-                <button type="button" data-qty-idx="${idx}" data-delta="1" class="btn-qty w-7 h-7 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-white font-bold">+</button>
+                <button type="button" data-qty-idx="${idx}" data-delta="1" class="btn-qty w-7 h-7 rounded-lg bg-[#0d2a1b] hover:bg-[#15412b] text-white font-bold border border-emerald-300/15">+</button>
               </div>
             </div>
           `;
@@ -564,9 +564,9 @@
         btn.addEventListener('click', () => {
           categoriaActiva = btn.getAttribute('data-cat');
           document.querySelectorAll('.filtro-btn').forEach((b) => {
-            b.className = 'filtro-btn px-4 py-2.5 rounded-xl text-xs font-bold bg-zinc-800 text-zinc-200 hover:bg-zinc-700';
+            b.className = 'filtro-btn px-4 py-2.5 rounded-xl text-xs font-bold bg-[#0b2317] text-emerald-100 hover:bg-[#123724] border border-emerald-300/15';
           });
-          btn.className = 'filtro-btn px-4 py-2.5 rounded-xl text-xs font-bold bg-white text-zinc-950 shadow';
+          btn.className = 'filtro-btn px-4 py-2.5 rounded-xl text-xs font-bold bg-emerald-300 text-[#071810] shadow';
           renderMenu();
         });
       });
@@ -575,7 +575,7 @@
         btn.addEventListener('click', () => {
           preparacionActiva = btn.getAttribute('data-prep');
           document.querySelectorAll('.prep-btn').forEach((b) => {
-            b.className = 'prep-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-zinc-800 text-zinc-200 hover:bg-zinc-700 border border-white/10';
+            b.className = 'prep-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-[#0b2317] text-emerald-100 hover:bg-[#123724] border border-emerald-300/15';
           });
           btn.className = 'prep-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-amber-400 text-zinc-950 shadow';
           renderMenu();
