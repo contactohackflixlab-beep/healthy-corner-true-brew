@@ -289,6 +289,13 @@
           id: 'tb-8', cat: 'true-brew', prepTipo: 'al-momento', prepEtiqueta: 'Hecho al momento', marca: 'True Brew', nombre: 'Bebida Refrescante Voltaje',
           img: 'bebida-refrescante-voltaje.jpg.jpe',
           desc: 'La Chispa, Fuego Tropical, Isla Voltaje, Costa Negra o Colada Negra',
+          sabores: [
+            'La Chispa (Maracuyá + Limón)',
+            'Fuego Tropical (Fresa + Mango)',
+            'Isla Voltaje (Piña + Coco)',
+            'Costa Negra (Mora + Coco)',
+            'Colada Negra (Piña + Coco + Mora)'
+          ],
           opciones: [{ label: '12 oz', precio: 2.00 }, { label: '16 oz', precio: 3.00 }, { label: '24 oz', precio: 4.00 }],
           permiteShot: true
         }
@@ -338,6 +345,12 @@
         }
 
         grid.innerHTML = filtrados.map((prod) => {
+          const saborHtml = Array.isArray(prod.sabores) && prod.sabores.length ? `
+            <select id="sabor-${prod.id}" aria-label="Elegir sabor de ${prod.nombre}" class="w-full px-3 py-2 rounded-xl bg-zinc-900 border border-white/15 text-xs text-white">
+              ${prod.sabores.map((sb) => `<option value="${sb}">Sabor: ${sb}</option>`).join('')}
+            </select>
+          ` : '';
+
           const selectOpciones = prod.opciones.map((op, idx) =>
             `<option value="${idx}">${op.label} — $${op.precio.toFixed(2)}</option>`
           ).join('');
@@ -385,6 +398,7 @@
                 </div>
               </div>
               <div class="p-4 pt-2 space-y-2">
+                ${saborHtml}
                 <select id="op-${prod.id}" class="w-full px-3 py-2 rounded-xl bg-zinc-900 border border-white/15 text-xs text-white">
                   ${selectOpciones}
                 </select>
@@ -409,6 +423,9 @@
         try {
           const prod = PRODUCTOS.find((p) => p.id === prodId);
           if (!prod) return;
+          const saborEl = document.getElementById(`sabor-${prod.id}`);
+          const saborTexto = saborEl && saborEl.value ? ` · ${saborEl.value}` : '';
+
           const opEl = document.getElementById(`op-${prod.id}`);
           const opIdx = opEl ? Number(opEl.value || 0) : 0;
           const opcion = prod.opciones[opIdx] || prod.opciones[0];
@@ -421,7 +438,7 @@
           const nota = notaEl ? notaEl.value.trim() : '';
 
           const precioUnitario = Number((opcion.precio + shotPrecio).toFixed(2));
-          const detalle = `${opcion.label}${shotTexto}${nota ? ` (${nota})` : ''}`;
+          const detalle = `${opcion.label}${saborTexto}${shotTexto}${nota ? ` (${nota})` : ''}`;
 
           const existente = carrito.find((item) =>
             item.nombre === prod.nombre &&
@@ -444,7 +461,7 @@
           }
 
           if (notaEl) notaEl.value = '';
-          setEstado(`Agregado (${prod.prepEtiqueta}): ${prod.nombre}`);
+          setEstado(`Agregado (${prod.prepEtiqueta}): ${prod.nombre}${saborTexto}`);
           renderCarrito();
         } catch (err) {
           console.error('Error al agregar al carrito:', err);
