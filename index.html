@@ -198,7 +198,7 @@
             <input
               id="ubicacionDomicilio"
               type="text"
-              placeholder="Enlace de Google Maps / Waze o coordenadas / sector"
+              placeholder="Enlace de Waze / Google Maps o sector"
               class="w-full px-3 py-2.5 rounded-xl bg-[#0b2317] border border-emerald-300/20 text-white placeholder:text-emerald-100/40"
             />
             <div>
@@ -210,7 +210,7 @@
               </select>
             </div>
             <p id="estadoGPS" class="text-[11px] text-emerald-200/80">
-              Regla: gratis hasta 2 km desde $5.00; más allá aplica tarifa por distancia.
+              Regla: gratis hasta 2 km desde $5.00; más allá aplica tarifa por distancia. Con GPS se enviarán enlaces de Waze y Google Maps.
             </p>
 
             <div>
@@ -295,6 +295,7 @@
       const TARIFA_LEJANA = 3.00;
 
       let distanciaGPSKm = null;
+      let enlacesGPS = null;
 
       const PRODUCTOS = [
         {
@@ -789,6 +790,18 @@
           ? `${pago} (${billete})`
           : pago;
 
+        let bloqueUbicacion = null;
+        if (domicilio) {
+          if (enlacesGPS && ubicacion.includes(enlacesGPS.wazeUrl)) {
+            bloqueUbicacion = [
+              `Ubicación Waze: ${enlacesGPS.wazeUrl}`,
+              `Ubicación Google Maps: ${enlacesGPS.mapsUrl}`
+            ].join('\n');
+          } else if (ubicacion) {
+            bloqueUbicacion = `Ubicación de entrega: ${ubicacion}`;
+          }
+        }
+
         return [
           domicilio
             ? '*PEDIDO A DOMICILIO — HEALTHY CORNER + TRUE BREW*'
@@ -796,7 +809,7 @@
           `Modalidad: ${domicilio ? 'A domicilio' : 'Para llevar (Pickup)'}`,
           nombre ? `Cliente: ${nombre}` : null,
           telefono ? `Teléfono: ${telefono}` : null,
-          domicilio && ubicacion ? `Ubicación de entrega: ${ubicacion}` : null,
+          bloqueUbicacion,
           domicilio && delivery.distanciaTexto ? `Distancia estimada: ${delivery.distanciaTexto}` : null,
           domicilio && referencia ? `Detalles / referencia: ${referencia}` : null,
           domicilio ? `Hora deseada de entrega: ${hora}` : `Hora de recogida: ${hora}`,
@@ -830,12 +843,19 @@
         });
       });
 
+      document.getElementById('ubicacionDomicilio')?.addEventListener('input', (e) => {
+        const val = e.target.value.trim();
+        if (enlacesGPS && !val.includes(enlacesGPS.wazeUrl) && !val.includes(enlacesGPS.mapsUrl)) {
+          enlacesGPS = null;
+        }
+      });
+
       document.getElementById('rangoDistancia')?.addEventListener('change', () => {
         distanciaGPSKm = null;
         renderCarrito();
       });
 
-      // Capturar ubicación GPS actual y calcular distancia desde el local
+      // Capturar ubicación GPS actual y generar enlaces de Waze y Google Maps
       document.getElementById('btnUsarUbicacionGPS')?.addEventListener('click', () => {
         const inputUbic = document.getElementById('ubicacionDomicilio');
         const estadoGPS = document.getElementById('estadoGPS');
@@ -850,10 +870,12 @@
             const lat = pos.coords.latitude;
             const lng = pos.coords.longitude;
             distanciaGPSKm = calcularDistanciaKm(LOCAL_COORDS.lat, LOCAL_COORDS.lng, lat, lng);
+            const wazeUrl = `https://waze.com/ul?ll=${lat.toFixed(6)},${lng.toFixed(6)}&navigate=yes`;
             const mapsUrl = `https://maps.google.com/?q=${lat.toFixed(6)},${lng.toFixed(6)}`;
-            if (inputUbic) inputUbic.value = mapsUrl;
+            enlacesGPS = { wazeUrl, mapsUrl };
+            if (inputUbic) inputUbic.value = wazeUrl;
             if (estadoGPS) {
-              estadoGPS.textContent = `GPS detectado (${distanciaGPSKm.toFixed(1)} km aprox.). Gratis hasta ${RADIO_GRATIS_KM} km desde $${MINIMO_GRATIS.toFixed(0)}.`;
+              estadoGPS.textContent = `GPS listo (${distanciaGPSKm.toFixed(1)} km aprox.): se enviarán Waze y Google Maps. Gratis hasta ${RADIO_GRATIS_KM} km desde $${MINIMO_GRATIS.toFixed(0)}.`;
             }
             renderCarrito();
           },
@@ -956,7 +978,7 @@
           return;
         }
         if (domicilio && !ubicacion) {
-          setEstado('Indica tu ubicación o enlace de Maps/Waze para el domicilio.', true);
+          setEstado('Indica tu ubicación o enlace de Waze/Maps para el domicilio.', true);
           return;
         }
         if (domicilio && !referencia) {
