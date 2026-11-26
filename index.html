@@ -227,6 +227,18 @@
       const WHATSAPP_NUMERO = '50760024647';
 
       const PRODUCTOS = [
+        {
+          id: 'hc-empanada',
+          cat: 'healthy',
+          prepTipo: 'listo',
+          prepEtiqueta: 'Listo rápido',
+          marca: 'Healthy Corner',
+          nombre: 'Empanada Horneada',
+          img: 'empanada.jpg.jpe',
+          desc: 'Empanada horneada recién salida, elige tu sabor favorito',
+          sabores: ['Pollo', 'Piña'],
+          opciones: [{ label: 'Unidad', precio: 1.00 }]
+        },
         { id: 'hc-1', cat: 'healthy', prepTipo: 'listo', prepEtiqueta: 'Listo rápido', marca: 'Healthy Corner', nombre: 'Café + Empanada', img: 'cafe-mas-empanada.jpg.jpe', desc: 'Café Americano + Empanada de Pollo o Piña', opciones: [{ label: 'Combo estándar', precio: 2.50 }] },
         { id: 'hc-2', cat: 'healthy', prepTipo: 'listo', prepEtiqueta: 'Listo rápido', marca: 'Healthy Corner', nombre: 'Café + Dulce', img: 'cafe-mas-dulce.jpg.jpe', desc: 'Café Americano + Dulce de Zanahoria (con café True Brew)', opciones: [{ label: 'Combo estándar', precio: 2.50 }] },
         { id: 'hc-3', cat: 'healthy', prepTipo: 'al-momento', prepEtiqueta: 'Hecho al momento', marca: 'Healthy Corner', nombre: 'Pancake con huevos', img: 'pancake-con-huevos.jpg.jpeg', desc: 'Desayuno para llevar recién preparado', opciones: [{ label: 'Orden', precio: 5.00 }] },
@@ -531,162 +543,165 @@
           return `
             <div class="bg-[#071810]/90 border border-emerald-300/15 rounded-xl p-3 flex items-start justify-between gap-2 text-xs">
               <div class="min-w-0">
-                <div class="flex items-center gap-1.5 flex-wrap">
-                  <span class="font-bold text-white truncate">${item.nombre}</span>
-                  <span class="text-[10px] font-bold px-1.5 py-0.5 rounded border ${prepBadgeColor}">${item.prepEtiqueta}</span>
+                <div class="flex items-center gap-1.5 flex-wrap mb-0.5">
+                  <span class="font-bold text-white">${item.nombre}</span>
+                  <span class="text-[10px] font-semibold px-1.5 py-0.5 rounded border ${prepBadgeColor}">${item.prepEtiqueta}</span>
                 </div>
-                <div class="text-[11px] text-emerald-100/70 mt-0.5">${item.detalle}</div>
-                <div class="text-emerald-300 font-bold mt-1">$${subtotal.toFixed(2)}</div>
+                <p class="text-emerald-100/70 break-words">${item.detalle}</p>
+                <p class="text-emerald-300 font-bold mt-1">$${subtotal.toFixed(2)} <span class="text-emerald-100/50 font-normal">($${item.precioUnitario.toFixed(2)} c/u)</span></p>
               </div>
-              <div class="flex items-center gap-1.5 shrink-0">
-                <button type="button" data-qty-idx="${idx}" data-delta="-1" class="btn-qty w-7 h-7 rounded-lg bg-[#0d2a1b] hover:bg-[#15412b] text-white font-bold border border-emerald-300/15">-</button>
-                <span class="font-bold text-white px-1">${item.cantidad}</span>
-                <button type="button" data-qty-idx="${idx}" data-delta="1" class="btn-qty w-7 h-7 rounded-lg bg-[#0d2a1b] hover:bg-[#15412b] text-white font-bold border border-emerald-300/15">+</button>
+              <div class="flex items-center gap-1 shrink-0">
+                <button type="button" data-idx="${idx}" data-delta="-1" class="btn-qty w-6 h-6 rounded-lg bg-[#0d281a] hover:bg-[#153b27] text-white font-bold border border-emerald-300/15">-</button>
+                <span class="w-5 text-center font-bold text-white">${item.cantidad}</span>
+                <button type="button" data-idx="${idx}" data-delta="1" class="btn-qty w-6 h-6 rounded-lg bg-[#0d281a] hover:bg-[#153b27] text-white font-bold border border-emerald-300/15">+</button>
               </div>
             </div>
           `;
         }).join('');
 
-        cont.querySelectorAll('.btn-qty').forEach((btn) => {
-          btn.addEventListener('click', () => {
-            cambiarCantidad(Number(btn.getAttribute('data-qty-idx')), Number(btn.getAttribute('data-delta')));
-          });
-        });
-
         totalEl.textContent = `$${total.toFixed(2)}`;
         if (badgeMovil) badgeMovil.textContent = `${totalUnidades} · $${total.toFixed(2)}`;
+
+        cont.querySelectorAll('.btn-qty').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            const idx = Number(btn.getAttribute('data-idx'));
+            const delta = Number(btn.getAttribute('data-delta'));
+            cambiarCantidad(idx, delta);
+          });
+        });
       }
 
-      function construirResumenPedido() {
-        const nombre = document.getElementById('cliNombre').value.trim();
-        const telefono = document.getElementById('cliTelefono').value.trim();
-        const hora = document.getElementById('horaRecogida').value.trim();
-        const pago = document.getElementById('medioPago').value;
-        const billete = document.getElementById('montoBillete').value.trim();
-        const notas = document.getElementById('notasPedido').value.trim();
-        const total = carrito.reduce((acc, i) => acc + (i.precioUnitario * i.cantidad), 0);
+      function construirResumen() {
+        const nombre = document.getElementById('cliNombre')?.value.trim() || '';
+        const telefono = document.getElementById('cliTelefono')?.value.trim() || '';
+        const hora = document.getElementById('horaRecogida')?.value.trim() || '';
+        const pago = document.getElementById('medioPago')?.value || '';
+        const billete = document.getElementById('montoBillete')?.value.trim() || '';
+        const notas = document.getElementById('notasPedido')?.value.trim() || '';
 
-        const lineasItems = carrito.map((i) =>
-          `• ${i.cantidad}x ${i.nombre} [${i.prepEtiqueta}] — ${i.detalle} ($${(i.precioUnitario * i.cantidad).toFixed(2)})`
-        ).join('\n');
+        const total = carrito.reduce((acc, item) => acc + item.precioUnitario * item.cantidad, 0);
+        const lineasItems = carrito.map((item) => {
+          const sub = (item.precioUnitario * item.cantidad).toFixed(2);
+          return `• ${item.cantidad}x ${item.nombre} (${item.detalle}) [${item.prepEtiqueta}] — $${sub}`;
+        });
+
+        const detallePago = pago === 'Efectivo al retirar' && billete
+          ? `${pago} (${billete})`
+          : pago;
 
         return [
-          `*PEDIDO PARA LLEVAR — HEALTHY CORNER + TRUE BREW*`,
-          `📍 *Retiro:* Calle Ernesto Pérez Balladares, diagonal al Hospital Chiriquí, David`,
-          `🗺️ *Waze:* https://waze.com/ul/hd1mrunz69`,
-          `👤 *Cliente:* ${nombre || 'No indicado'}${telefono ? ` (${telefono})` : ''}`,
-          `⏰ *Hora en que pasa:* ${hora || 'Por coordinar'}`,
-          `💳 *Medio de pago:* ${pago}${pago === 'Efectivo al retirar' && billete ? ` (Billete: ${billete})` : ''}`,
-          ``,
-          `*Detalle del pedido:*`,
-          lineasItems,
-          ``,
-          `💰 *Total estimado:* $${total.toFixed(2)}`,
-          notas ? `📝 *Notas:* ${notas}` : ''
+          '*PEDIDO PARA LLEVAR — HEALTHY CORNER + TRUE BREW*',
+          nombre ? `Cliente: ${nombre}` : null,
+          telefono ? `Teléfono: ${telefono}` : null,
+          `Hora de recogida: ${hora}`,
+          `Medio de pago: ${detallePago}`,
+          '',
+          '*Detalle:*',
+          ...lineasItems,
+          '',
+          `*Total estimado: $${total.toFixed(2)}*`,
+          notas ? `Notas: ${notas}` : null,
+          'Ubicación (Waze): https://waze.com/ul/hd1mrunz69'
         ].filter(Boolean).join('\n');
       }
 
+      // Filtros de categoría
       document.querySelectorAll('.filtro-btn').forEach((btn) => {
         btn.addEventListener('click', () => {
-          categoriaActiva = btn.getAttribute('data-cat');
+          categoriaActiva = btn.getAttribute('data-cat') || 'todos';
           document.querySelectorAll('.filtro-btn').forEach((b) => {
-            b.className = 'filtro-btn px-4 py-2.5 rounded-xl text-xs font-bold bg-[#0b2317] text-emerald-100 hover:bg-[#123724] border border-emerald-300/15';
+            const activo = b === btn;
+            b.className = activo
+              ? 'filtro-btn px-4 py-2.5 rounded-xl text-xs font-bold bg-emerald-300 text-[#071810] shadow'
+              : 'filtro-btn px-4 py-2.5 rounded-xl text-xs font-bold bg-[#0b2317] text-emerald-100 hover:bg-[#123724] border border-emerald-300/15';
           });
-          btn.className = 'filtro-btn px-4 py-2.5 rounded-xl text-xs font-bold bg-emerald-300 text-[#071810] shadow';
           renderMenu();
         });
       });
 
+      // Filtros de preparación
       document.querySelectorAll('.prep-btn').forEach((btn) => {
         btn.addEventListener('click', () => {
-          preparacionActiva = btn.getAttribute('data-prep');
+          preparacionActiva = btn.getAttribute('data-prep') || 'todos';
           document.querySelectorAll('.prep-btn').forEach((b) => {
-            b.className = 'prep-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-[#0b2317] text-emerald-100 hover:bg-[#123724] border border-emerald-300/15';
+            const activo = b === btn;
+            b.className = activo
+              ? 'prep-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-amber-400 text-zinc-950 shadow'
+              : 'prep-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-[#0b2317] text-emerald-100 hover:bg-[#123724] border border-emerald-300/15';
           });
-          btn.className = 'prep-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-amber-400 text-zinc-950 shadow';
           renderMenu();
         });
       });
 
+      // Presets de hora de recogida
       document.querySelectorAll('.preset-hora').forEach((btn) => {
         btn.addEventListener('click', () => {
           const inputHora = document.getElementById('horaRecogida');
-          if (inputHora) inputHora.value = btn.getAttribute('data-hora');
+          if (inputHora) inputHora.value = btn.getAttribute('data-hora') || '';
         });
       });
 
-      const medioPagoEl = document.getElementById('medioPago');
-      if (medioPagoEl) {
-        medioPagoEl.addEventListener('change', (e) => {
-          const campoEf = document.getElementById('campoEfectivo');
-          if (!campoEf) return;
-          if (e.target.value === 'Efectivo al retirar') {
-            campoEf.classList.remove('hidden');
-          } else {
-            campoEf.classList.add('hidden');
-          }
-        });
+      // Mostrar campo de billete solo cuando elige Efectivo al retirar
+      const selectPago = document.getElementById('medioPago');
+      const campoEfectivo = document.getElementById('campoEfectivo');
+      if (selectPago && campoEfectivo) {
+        const toggleEfectivo = () => {
+          campoEfectivo.classList.toggle('hidden', selectPago.value !== 'Efectivo al retirar');
+        };
+        selectPago.addEventListener('change', toggleEfectivo);
+        toggleEfectivo();
       }
 
-      const btnLimpiar = document.getElementById('btnLimpiarCarrito');
-      if (btnLimpiar) {
-        btnLimpiar.addEventListener('click', () => {
-          carrito = [];
-          setEstado('Carrito vaciado.');
-          renderCarrito();
-        });
-      }
+      // Vaciar carrito
+      document.getElementById('btnLimpiarCarrito')?.addEventListener('click', () => {
+        carrito = [];
+        renderCarrito();
+        setEstado('Pedido vaciado.');
+      });
 
-      const btnMovil = document.getElementById('btnAbrirCarritoMovil');
-      if (btnMovil) {
-        btnMovil.addEventListener('click', () => {
-          const panel = document.getElementById('panelPedido');
-          if (panel) panel.scrollIntoView({ behavior: 'smooth' });
-        });
-      }
+      // Scroll suave al panel en móvil
+      document.getElementById('btnAbrirCarritoMovil')?.addEventListener('click', () => {
+        document.getElementById('panelPedido')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
 
-      const btnCopiar = document.getElementById('btnCopiarResumen');
-      if (btnCopiar) {
-        btnCopiar.addEventListener('click', () => {
-          if (!carrito.length) {
-            setEstado('Agrega al menos un producto primero.', true);
-            return;
-          }
-          const texto = construirResumenPedido();
-          try {
-            const temp = document.createElement('textarea');
-            temp.value = texto;
-            document.body.appendChild(temp);
-            temp.select();
-            document.execCommand('copy');
-            document.body.removeChild(temp);
-            setEstado('Resumen copiado al portapapeles.');
-          } catch (_) {
-            setEstado('No se pudo copiar automáticamente.', true);
-          }
-        });
-      }
+      // Copiar resumen
+      document.getElementById('btnCopiarResumen')?.addEventListener('click', async () => {
+        if (!carrito.length) {
+          setEstado('Agrega al menos un producto antes de copiar el resumen.', true);
+          return;
+        }
+        const texto = construirResumen();
+        try {
+          await navigator.clipboard.writeText(texto);
+          setEstado('Resumen copiado al portapapeles.');
+        } catch {
+          setEstado('No se pudo copiar automáticamente.', true);
+        }
+      });
 
-      const formCheckout = document.getElementById('formCheckout');
-      if (formCheckout) {
-        formCheckout.addEventListener('submit', (e) => {
-          e.preventDefault();
-          const nombreEl = document.getElementById('cliNombre');
-          const nombre = nombreEl ? nombreEl.value.trim() : '';
-          if (!carrito.length) {
-            setEstado('Agrega al menos un producto a tu pedido.', true);
-            return;
-          }
-          if (!nombre) {
-            setEstado('Por favor escribe tu nombre para identificar el pedido.', true);
-            return;
-          }
-          const mensaje = construirResumenPedido();
-          const url = `https://wa.me/${WHATSAPP_NUMERO}?text=${encodeURIComponent(mensaje)}`;
-          setEstado('Pedido listo para enviar por WhatsApp al +507 6002-4647.');
-          window.open(url, '_blank', 'noopener,noreferrer');
-        });
-      }
+      // Enviar por WhatsApp
+      document.getElementById('formCheckout')?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (!carrito.length) {
+          setEstado('Agrega al menos un producto a tu orden.', true);
+          return;
+        }
+        const nombre = document.getElementById('cliNombre')?.value.trim() || '';
+        const hora = document.getElementById('horaRecogida')?.value.trim() || '';
+        if (!nombre) {
+          setEstado('Por favor escribe tu nombre.', true);
+          return;
+        }
+        if (!hora) {
+          setEstado('Indica a qué hora pasas a recoger.', true);
+          return;
+        }
+
+        const mensaje = encodeURIComponent(construirResumen());
+        const url = `https://wa.me/${WHATSAPP_NUMERO}?text=${mensaje}`;
+        window.open(url, '_blank', 'noopener,noreferrer');
+        setEstado('Abriendo WhatsApp con tu pedido listo...');
+      });
 
       renderMenu();
       renderCarrito();
