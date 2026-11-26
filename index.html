@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Healthy Corner + True Brew | Pedidos Para Llevar — David, Chiriquí</title>
+  <title>Healthy Corner + True Brew | Pedidos Para Llevar y Domicilio — David, Chiriquí</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -56,7 +56,7 @@
             <span class="font-black text-lg sm:text-xl tracking-tight text-white">HEALTHY CORNER</span>
             <span class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-red-950/90 text-red-300 border border-red-700/40">+ TRUE BREW</span>
           </div>
-          <p class="text-xs text-emerald-100/70 truncate">Para Llevar (Pickup) · Calle Ernesto Pérez Balladares, diagonal al Hospital Chiriquí, David</p>
+          <p class="text-xs text-emerald-100/70 truncate">Para Llevar y Domicilio · Calle Ernesto Pérez Balladares, diagonal al Hospital Chiriquí, David</p>
         </div>
       </div>
       <div class="flex items-center gap-2 shrink-0">
@@ -76,22 +76,22 @@
     </div>
   </header>
 
-  <!-- Banner de bienvenida y puntos clave para llevar -->
+  <!-- Banner de bienvenida y puntos clave -->
   <section class="max-w-7xl w-full mx-auto px-4 pt-6 pb-5">
     <div class="card-surface rounded-2xl p-6 md:p-8 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
       <div class="max-w-2xl space-y-2.5">
         <span class="inline-block text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-emerald-900/70 text-emerald-200 border border-emerald-400/30">
-          Ordena aquí · Pasa a recoger sin fila
+          Para llevar sin fila · Envío gratis hasta 2 km (desde $10)
         </span>
         <h1 class="text-2xl sm:text-4xl font-black text-white leading-tight">
-          Tu pedido listo justo cuando vas pasando.
+          Tu pedido listo justo cuando vas pasando o en tu puerta.
         </h1>
         <p class="text-sm text-emerald-50/85 leading-relaxed">
-          Armá tu orden de <strong class="text-emerald-300">Healthy Corner</strong>, cafés y bebidas refrescantes de <strong class="text-red-300">True Brew</strong>, elegí tu <strong>medio de pago</strong> y avisanos <strong>a qué hora pasás</strong>.
+          Armá tu orden de <strong class="text-emerald-300">Healthy Corner</strong>, cafés y bebidas refrescantes de <strong class="text-red-300">True Brew</strong>, elegí si pasás a recoger o te lo llevamos a <strong>domicilio</strong>, definí tu <strong>medio de pago</strong> y enviá tu pedido por WhatsApp.
         </p>
       </div>
       <div class="text-xs text-emerald-50/85 bg-[#071810]/70 p-4 rounded-xl border border-emerald-300/15 space-y-2 lg:max-w-sm w-full shrink-0">
-        <div><strong class="text-white">Punto de retiro:</strong> Calle Ernesto Pérez Balladares, diagonal al Hospital Chiriquí, David, Chiriquí</div>
+        <div><strong class="text-white">Punto de retiro / base:</strong> Calle Ernesto Pérez Balladares, diagonal al Hospital Chiriquí, David, Chiriquí</div>
         <div><strong class="text-white">WhatsApp / Tel:</strong> +507 6002-4647</div>
         <div><strong class="text-white">Instagram:</strong> @thehealthycornerdavid · @truebrewdrinks</div>
         <div class="pt-1">
@@ -108,7 +108,7 @@
     </div>
   </section>
 
-  <!-- Contenido principal: Menú + Carrito de Retiro -->
+  <!-- Contenido principal: Menú + Carrito -->
   <main class="max-w-7xl w-full mx-auto px-4 pb-16 grid lg:grid-cols-12 gap-8 flex-1">
     <!-- Columna izquierda: Filtros y tarjetas de productos -->
     <div class="lg:col-span-7 xl:col-span-8 space-y-6 min-w-0">
@@ -129,12 +129,12 @@
       <div id="gridMenu" class="grid sm:grid-cols-2 gap-4"></div>
     </div>
 
-    <!-- Columna derecha: Orden para llevar, hora de recogida y pago -->
+    <!-- Columna derecha: Orden, modalidad de entrega, ubicación y pago -->
     <aside id="panelPedido" class="lg:col-span-5 xl:col-span-4 min-w-0">
       <div class="card-surface rounded-2xl p-5 sm:p-6 lg:sticky lg:top-20 space-y-5">
         <div class="flex items-center justify-between border-b border-emerald-300/15 pb-3">
           <div>
-            <span class="text-[11px] font-bold uppercase tracking-wider text-red-300">Modalidad Para Llevar</span>
+            <span id="lblModalidadBadge" class="text-[11px] font-bold uppercase tracking-wider text-red-300">Modalidad Para Llevar</span>
             <h2 class="text-xl font-black text-white">Tu Orden</h2>
           </div>
           <button id="btnLimpiarCarrito" type="button" class="text-xs text-emerald-200/70 hover:text-white underline">Vaciar</button>
@@ -145,14 +145,37 @@
           <p class="text-xs text-emerald-100/65 italic py-4 text-center">Aún no has agregado productos a tu pedido.</p>
         </div>
 
-        <!-- Total calculado -->
-        <div class="border-t border-emerald-300/15 pt-3 flex items-center justify-between text-base font-black text-white">
-          <span>Total estimado</span>
-          <span id="lblTotal" class="text-xl text-emerald-300">$0.00</span>
+        <!-- Desglose de subtotal, delivery y total -->
+        <div class="border-t border-emerald-300/15 pt-3 space-y-1.5 text-xs">
+          <div class="flex items-center justify-between text-emerald-100/80">
+            <span>Subtotal productos</span>
+            <span id="lblSubtotal" class="font-bold text-white">$0.00</span>
+          </div>
+          <div id="filaDelivery" class="hidden flex items-center justify-between text-emerald-100/80">
+            <span id="lblDetalleDelivery">Tarifa de delivery</span>
+            <span id="lblDelivery" class="font-bold text-amber-300">$0.00</span>
+          </div>
+          <div class="flex items-center justify-between text-base font-black text-white pt-1 border-t border-emerald-300/10">
+            <span>Total estimado</span>
+            <span id="lblTotal" class="text-xl text-emerald-300">$0.00</span>
+          </div>
         </div>
 
-        <!-- Formulario de retiro, hora y pago -->
+        <!-- Formulario de entrega, ubicación, hora y pago -->
         <form id="formCheckout" class="space-y-3.5 border-t border-emerald-300/15 pt-4 text-xs" novalidate>
+          <div>
+            <span class="block text-emerald-100 font-semibold mb-1.5">Tipo de entrega *</span>
+            <div class="grid grid-cols-2 gap-2" id="selectorEntrega">
+              <button type="button" data-entrega="pickup" class="entrega-btn py-2.5 px-3 rounded-xl font-bold bg-emerald-300 text-[#071810] shadow text-center">
+                Para llevar
+              </button>
+              <button type="button" data-entrega="domicilio" class="entrega-btn py-2.5 px-3 rounded-xl font-bold bg-[#0b2317] hover:bg-[#123724] text-emerald-100 border border-emerald-300/15 text-center">
+                A domicilio
+              </button>
+            </div>
+            <input id="tipoEntrega" type="hidden" value="pickup" />
+          </div>
+
           <div class="grid sm:grid-cols-2 gap-3">
             <div>
               <label for="cliNombre" class="block text-emerald-100 font-semibold mb-1">Tu nombre *</label>
@@ -164,8 +187,45 @@
             </div>
           </div>
 
+          <!-- Campos exclusivos para entrega a domicilio -->
+          <div id="camposDomicilio" class="hidden space-y-3 bg-[#071810]/85 border border-emerald-400/25 rounded-xl p-3.5">
+            <div class="flex items-center justify-between gap-2">
+              <label for="ubicacionDomicilio" class="block text-emerald-200 font-bold">Ubicación de entrega *</label>
+              <button id="btnUsarUbicacionGPS" type="button" class="px-2.5 py-1 rounded-lg bg-emerald-700/80 hover:bg-emerald-600 text-white font-bold text-[11px] border border-emerald-400/30 transition">
+                📍 Usar mi GPS
+              </button>
+            </div>
+            <input
+              id="ubicacionDomicilio"
+              type="text"
+              placeholder="Enlace de Google Maps / Waze o coordenadas / sector"
+              class="w-full px-3 py-2.5 rounded-xl bg-[#0b2317] border border-emerald-300/20 text-white placeholder:text-emerald-100/40"
+            />
+            <div>
+              <label for="rangoDistancia" class="block text-emerald-200 font-semibold mb-1">Distancia / zona (si no usaste GPS)</label>
+              <select id="rangoDistancia" class="w-full px-3 py-2 rounded-xl bg-[#0b2317] border border-emerald-300/20 text-white">
+                <option value="hasta-2km">Hasta 2 km del Hospital Chiriquí (Gratis desde $10 / $1.50 si es menor)</option>
+                <option value="2-a-4km">Entre 2 km y 4 km (+$2.00)</option>
+                <option value="mas-4km">Más de 4 km (+$3.00)</option>
+              </select>
+            </div>
+            <p id="estadoGPS" class="text-[11px] text-emerald-200/80">
+              Regla: gratis hasta 2 km desde $10.00; más allá aplica tarifa por distancia.
+            </p>
+
+            <div>
+              <label for="referenciaEntrega" class="block text-emerald-200 font-bold mb-1">Detalles o referencia de entrega *</label>
+              <textarea
+                id="referenciaEntrega"
+                rows="2"
+                placeholder="Ej. Barriada / calle, color de casa, portón, piso/oficina o punto de referencia..."
+                class="w-full px-3 py-2 rounded-xl bg-[#0b2317] border border-emerald-300/20 text-white placeholder:text-emerald-100/40 resize-none"
+              ></textarea>
+            </div>
+          </div>
+
           <div>
-            <label for="horaRecogida" class="block text-emerald-100 font-semibold mb-1">¿A qué hora pasas a recoger? *</label>
+            <label id="lblHoraEntrega" for="horaRecogida" class="block text-emerald-100 font-semibold mb-1">¿A qué hora pasas a recoger? *</label>
             <p id="guiaHoraRecogida" class="text-[11px] text-amber-300/95 mb-2">Tip de retiro: si pides ítems "Hecho al momento", calcula 15–25 min antes de pasar.</p>
             <div class="grid grid-cols-2 gap-2 mb-2">
               <button type="button" data-hora="Lo antes posible (15 - 20 min)" class="preset-hora px-3 py-2 rounded-xl bg-[#0b2317] hover:bg-[#123724] text-white font-semibold border border-emerald-300/15 text-left">
@@ -212,7 +272,7 @@
 
   <footer class="border-t border-emerald-300/15 bg-[#06140c]/85 py-6 px-4 text-xs text-emerald-100/70">
     <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
-      <span><strong>HEALTHY CORNER + TRUE BREW</strong> · Pedidos Para Llevar en David, Chiriquí</span>
+      <span><strong>HEALTHY CORNER + TRUE BREW</strong> · Pedidos Para Llevar y Domicilio en David, Chiriquí</span>
       <div class="flex flex-wrap items-center gap-3">
         <a href="https://waze.com/ul/hd1mrunz69" target="_blank" rel="noopener noreferrer" class="text-emerald-300 hover:text-white underline font-semibold">
           Waze: True Brew + Healthy Corner
@@ -225,6 +285,16 @@
   <script>
     (function () {
       const WHATSAPP_NUMERO = '50760024647';
+
+      // Ajusta estas coordenadas al punto exacto de tu local diagonal al Hospital Chiriquí
+      const LOCAL_COORDS = { lat: 8.4305, lng: -82.4295 };
+      const RADIO_GRATIS_KM = 2.0;
+      const MINIMO_GRATIS = 10.0;
+      const TARIFA_CORTA_MENOR_MINIMO = 1.50;
+      const TARIFA_MEDIA = 2.00;
+      const TARIFA_LEJANA = 3.00;
+
+      let distanciaGPSKm = null;
 
       const PRODUCTOS = [
         {
@@ -353,6 +423,67 @@
       let categoriaActiva = 'todos';
       let preparacionActiva = 'todos';
 
+      function esDomicilio() {
+        return document.getElementById('tipoEntrega')?.value === 'domicilio';
+      }
+
+      function calcularDistanciaKm(lat1, lon1, lat2, lon2) {
+        const R = 6371;
+        const toRad = (deg) => (deg * Math.PI) / 180;
+        const dLat = toRad(lat2 - lat1);
+        const dLon = toRad(lon2 - lon1);
+        const a =
+          Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+          Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+          Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      }
+
+      function calcularDelivery(subtotal) {
+        if (!esDomicilio() || !carrito.length) {
+          return { monto: 0, etiqueta: 'Tarifa de delivery', distanciaTexto: '' };
+        }
+
+        const rangoSel = document.getElementById('rangoDistancia')?.value || 'hasta-2km';
+        let kmEstimados = distanciaGPSKm;
+        if (kmEstimados === null) {
+          if (rangoSel === 'hasta-2km') kmEstimados = 1.2;
+          else if (rangoSel === '2-a-4km') kmEstimados = 3.0;
+          else kmEstimados = 5.0;
+        }
+
+        const distanciaTexto = `${kmEstimados.toFixed(1)} km aprox.`;
+
+        if (kmEstimados <= RADIO_GRATIS_KM) {
+          if (subtotal >= MINIMO_GRATIS) {
+            return {
+              monto: 0,
+              etiqueta: `Delivery (${distanciaTexto} · Gratis desde $${MINIMO_GRATIS.toFixed(0)})`,
+              distanciaTexto
+            };
+          }
+          return {
+            monto: TARIFA_CORTA_MENOR_MINIMO,
+            etiqueta: `Delivery (${distanciaTexto} · bajo $${MINIMO_GRATIS.toFixed(0)})`,
+            distanciaTexto
+          };
+        }
+
+        if (kmEstimados <= 4.0) {
+          return {
+            monto: TARIFA_MEDIA,
+            etiqueta: `Delivery (${distanciaTexto})`,
+            distanciaTexto
+          };
+        }
+
+        return {
+          monto: TARIFA_LEJANA,
+          etiqueta: `Delivery (${distanciaTexto})`,
+          distanciaTexto
+        };
+      }
+
       function setEstado(texto, esError = false) {
         const msg = document.getElementById('msgEstado');
         if (!msg) return;
@@ -362,18 +493,53 @@
           : 'text-emerald-300 text-center font-medium min-h-[18px]';
       }
 
+      function actualizarModoEntregaUI() {
+        const domicilio = esDomicilio();
+        const badge = document.getElementById('lblModalidadBadge');
+        const camposDom = document.getElementById('camposDomicilio');
+        const lblHora = document.getElementById('lblHoraEntrega');
+        const medioPago = document.getElementById('medioPago');
+
+        if (badge) {
+          badge.textContent = domicilio ? 'Modalidad A Domicilio' : 'Modalidad Para Llevar';
+        }
+        if (camposDom) {
+          camposDom.classList.toggle('hidden', !domicilio);
+        }
+        if (lblHora) {
+          lblHora.textContent = domicilio
+            ? '¿A qué hora deseas recibirlo? *'
+            : '¿A qué hora pasas a recoger? *';
+        }
+        if (medioPago && medioPago.options.length > 1) {
+          medioPago.options[1].text = domicilio ? 'Efectivo al recibir' : 'Efectivo al retirar';
+          if (medioPago.options[1].value.startsWith('Efectivo')) {
+            medioPago.options[1].value = domicilio ? 'Efectivo al recibir' : 'Efectivo al retirar';
+          }
+        }
+        actualizarGuiaRetiro();
+        renderCarrito();
+      }
+
       function actualizarGuiaRetiro() {
         const guia = document.getElementById('guiaHoraRecogida');
         if (!guia) return;
+        const domicilio = esDomicilio();
         if (!carrito.length) {
-          guia.textContent = 'Tip de retiro: si pides ítems "Hecho al momento", calcula 15–25 min antes de pasar.';
+          guia.textContent = domicilio
+            ? 'Tip de domicilio: gratis hasta 2 km desde $10.00; ítems "Hecho al momento" toman 15–25 min más traslado.'
+            : 'Tip de retiro: si pides ítems "Hecho al momento", calcula 15–25 min antes de pasar.';
           return;
         }
         const tieneAlMomento = carrito.some((i) => i.prepTipo === 'al-momento');
-        if (tieneAlMomento) {
-          guia.textContent = 'Tu orden incluye ítems "Hecho al momento": te sugerimos pasar en 20–30 min o indicar tu hora exacta.';
+        if (domicilio) {
+          guia.textContent = tieneAlMomento
+            ? 'Incluye ítems "Hecho al momento": considera tiempo de preparación + traslado en tu zona.'
+            : 'Orden "Listo / Listo rápido": ideal para despacho ágil una vez confirmada tu ubicación.';
         } else {
-          guia.textContent = 'Tu orden es "Listo / Listo rápido": ideal para retiro ágil en 10–15 min o a la hora que indiques.';
+          guia.textContent = tieneAlMomento
+            ? 'Tu orden incluye ítems "Hecho al momento": te sugerimos pasar en 20–30 min o indicar tu hora exacta.'
+            : 'Tu orden es "Listo / Listo rápido": ideal para retiro ágil en 10–15 min o a la hora que indiques.';
         }
       }
 
@@ -453,7 +619,7 @@
                 ${shotHtml}
                 <input id="nota-${prod.id}" type="text" placeholder="Sabor o detalle (ej. pollo, sin hielo...)" class="w-full px-3 py-2 rounded-xl bg-[#071810]/85 border border-emerald-300/15 text-xs text-emerald-50 placeholder:text-emerald-100/40" />
                 <button type="button" data-add-id="${prod.id}" class="btn-add-prod w-full py-2.5 rounded-xl text-xs font-black text-white ${btnClase}">
-                  + Agregar para llevar
+                  + Agregar al pedido
                 </button>
               </div>
             </div>
@@ -528,6 +694,10 @@
 
       function renderCarrito() {
         const cont = document.getElementById('listaCarrito');
+        const subEl = document.getElementById('lblSubtotal');
+        const filaDel = document.getElementById('filaDelivery');
+        const lblDetDel = document.getElementById('lblDetalleDelivery');
+        const lblDel = document.getElementById('lblDelivery');
         const totalEl = document.getElementById('lblTotal');
         const badgeMovil = document.getElementById('badgeMovil');
         actualizarGuiaRetiro();
@@ -535,17 +705,20 @@
 
         if (!carrito.length) {
           cont.innerHTML = '<p class="text-xs text-emerald-100/65 italic py-4 text-center">Aún no has agregado productos a tu pedido.</p>';
+          if (subEl) subEl.textContent = '$0.00';
+          if (filaDel) filaDel.classList.toggle('hidden', !esDomicilio());
+          if (lblDel) lblDel.textContent = '$0.00';
           totalEl.textContent = '$0.00';
           if (badgeMovil) badgeMovil.textContent = '0 · $0.00';
           return;
         }
 
-        let total = 0;
+        let subtotal = 0;
         let totalUnidades = 0;
 
         cont.innerHTML = carrito.map((item, idx) => {
-          const subtotal = item.precioUnitario * item.cantidad;
-          total += subtotal;
+          const subItem = item.precioUnitario * item.cantidad;
+          subtotal += subItem;
           totalUnidades += item.cantidad;
           const prepBadgeColor = item.prepTipo === 'listo'
             ? 'text-cyan-200 bg-cyan-950/75 border-cyan-600/40'
@@ -559,7 +732,7 @@
                   <span class="text-[10px] font-semibold px-1.5 py-0.5 rounded border ${prepBadgeColor}">${item.prepEtiqueta}</span>
                 </div>
                 <p class="text-emerald-100/70 break-words">${item.detalle}</p>
-                <p class="text-emerald-300 font-bold mt-1">$${subtotal.toFixed(2)} <span class="text-emerald-100/50 font-normal">($${item.precioUnitario.toFixed(2)} c/u)</span></p>
+                <p class="text-emerald-300 font-bold mt-1">$${subItem.toFixed(2)} <span class="text-emerald-100/50 font-normal">($${item.precioUnitario.toFixed(2)} c/u)</span></p>
               </div>
               <div class="flex items-center gap-1 shrink-0">
                 <button type="button" data-idx="${idx}" data-delta="-1" class="btn-qty w-6 h-6 rounded-lg bg-[#0d281a] hover:bg-[#153b27] text-white font-bold border border-emerald-300/15">-</button>
@@ -570,6 +743,16 @@
           `;
         }).join('');
 
+        const delivery = calcularDelivery(subtotal);
+        const total = subtotal + delivery.monto;
+
+        if (subEl) subEl.textContent = `$${subtotal.toFixed(2)}`;
+        if (filaDel) filaDel.classList.toggle('hidden', !esDomicilio());
+        if (lblDetDel) lblDetDel.textContent = delivery.etiqueta;
+        if (lblDel) {
+          lblDel.textContent = delivery.monto === 0 ? 'GRATIS' : `$${delivery.monto.toFixed(2)}`;
+          lblDel.className = delivery.monto === 0 ? 'font-black text-emerald-300' : 'font-bold text-amber-300';
+        }
         totalEl.textContent = `$${total.toFixed(2)}`;
         if (badgeMovil) badgeMovil.textContent = `${totalUnidades} · $${total.toFixed(2)}`;
 
@@ -583,38 +766,103 @@
       }
 
       function construirResumen() {
+        const domicilio = esDomicilio();
         const nombre = document.getElementById('cliNombre')?.value.trim() || '';
         const telefono = document.getElementById('cliTelefono')?.value.trim() || '';
+        const ubicacion = document.getElementById('ubicacionDomicilio')?.value.trim() || '';
+        const referencia = document.getElementById('referenciaEntrega')?.value.trim() || '';
         const hora = document.getElementById('horaRecogida')?.value.trim() || '';
         const pago = document.getElementById('medioPago')?.value || '';
         const billete = document.getElementById('montoBillete')?.value.trim() || '';
         const notas = document.getElementById('notasPedido')?.value.trim() || '';
 
-        const total = carrito.reduce((acc, item) => acc + item.precioUnitario * item.cantidad, 0);
+        const subtotal = carrito.reduce((acc, item) => acc + item.precioUnitario * item.cantidad, 0);
+        const delivery = calcularDelivery(subtotal);
+        const total = subtotal + delivery.monto;
+
         const lineasItems = carrito.map((item) => {
           const sub = (item.precioUnitario * item.cantidad).toFixed(2);
           return `• ${item.cantidad}x ${item.nombre} (${item.detalle}) [${item.prepEtiqueta}] — $${sub}`;
         });
 
-        const detallePago = pago === 'Efectivo al retirar' && billete
+        const detallePago = pago.startsWith('Efectivo') && billete
           ? `${pago} (${billete})`
           : pago;
 
         return [
-          '*PEDIDO PARA LLEVAR — HEALTHY CORNER + TRUE BREW*',
+          domicilio
+            ? '*PEDIDO A DOMICILIO — HEALTHY CORNER + TRUE BREW*'
+            : '*PEDIDO PARA LLEVAR — HEALTHY CORNER + TRUE BREW*',
+          `Modalidad: ${domicilio ? 'A domicilio' : 'Para llevar (Pickup)'}`,
           nombre ? `Cliente: ${nombre}` : null,
           telefono ? `Teléfono: ${telefono}` : null,
-          `Hora de recogida: ${hora}`,
+          domicilio && ubicacion ? `Ubicación de entrega: ${ubicacion}` : null,
+          domicilio && delivery.distanciaTexto ? `Distancia estimada: ${delivery.distanciaTexto}` : null,
+          domicilio && referencia ? `Detalles / referencia: ${referencia}` : null,
+          domicilio ? `Hora deseada de entrega: ${hora}` : `Hora de recogida: ${hora}`,
           `Medio de pago: ${detallePago}`,
           '',
           '*Detalle:*',
           ...lineasItems,
           '',
+          domicilio ? `Subtotal: $${subtotal.toFixed(2)}` : null,
+          domicilio ? `Delivery: ${delivery.monto === 0 ? 'GRATIS' : `$${delivery.monto.toFixed(2)}`}` : null,
           `*Total estimado: $${total.toFixed(2)}*`,
           notas ? `Notas: ${notas}` : null,
-          'Ubicación (Waze): https://waze.com/ul/hd1mrunz69'
+          domicilio ? null : 'Ubicación retiro (Waze): https://waze.com/ul/hd1mrunz69'
         ].filter(Boolean).join('\n');
       }
+
+      // Selector Para llevar / A domicilio
+      document.querySelectorAll('.entrega-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const modo = btn.getAttribute('data-entrega') || 'pickup';
+          const hiddenInput = document.getElementById('tipoEntrega');
+          if (hiddenInput) hiddenInput.value = modo;
+
+          document.querySelectorAll('.entrega-btn').forEach((b) => {
+            const activo = b === btn;
+            b.className = activo
+              ? 'entrega-btn py-2.5 px-3 rounded-xl font-bold bg-emerald-300 text-[#071810] shadow text-center'
+              : 'entrega-btn py-2.5 px-3 rounded-xl font-bold bg-[#0b2317] hover:bg-[#123724] text-emerald-100 border border-emerald-300/15 text-center';
+          });
+          actualizarModoEntregaUI();
+        });
+      });
+
+      document.getElementById('rangoDistancia')?.addEventListener('change', () => {
+        distanciaGPSKm = null;
+        renderCarrito();
+      });
+
+      // Capturar ubicación GPS actual y calcular distancia desde el local
+      document.getElementById('btnUsarUbicacionGPS')?.addEventListener('click', () => {
+        const inputUbic = document.getElementById('ubicacionDomicilio');
+        const estadoGPS = document.getElementById('estadoGPS');
+        if (!navigator.geolocation) {
+          if (estadoGPS) estadoGPS.textContent = 'Tu navegador no soporta GPS; pega el enlace o elige la distancia.';
+          return;
+        }
+        if (estadoGPS) estadoGPS.textContent = 'Obteniendo ubicación GPS y distancia...';
+
+        navigator.geolocation.getCurrentPosition(
+          (pos) => {
+            const lat = pos.coords.latitude;
+            const lng = pos.coords.longitude;
+            distanciaGPSKm = calcularDistanciaKm(LOCAL_COORDS.lat, LOCAL_COORDS.lng, lat, lng);
+            const mapsUrl = `https://maps.google.com/?q=${lat.toFixed(6)},${lng.toFixed(6)}`;
+            if (inputUbic) inputUbic.value = mapsUrl;
+            if (estadoGPS) {
+              estadoGPS.textContent = `GPS detectado (${distanciaGPSKm.toFixed(1)} km aprox.). Gratis hasta ${RADIO_GRATIS_KM} km desde $${MINIMO_GRATIS.toFixed(0)}.`;
+            }
+            renderCarrito();
+          },
+          () => {
+            if (estadoGPS) estadoGPS.textContent = 'No se pudo leer el GPS (revisa permisos o elige la distancia arriba).';
+          },
+          { enableHighAccuracy: true, timeout: 10000 }
+        );
+      });
 
       // Filtros de categoría
       document.querySelectorAll('.filtro-btn').forEach((btn) => {
@@ -644,7 +892,7 @@
         });
       });
 
-      // Presets de hora de recogida
+      // Presets de hora
       document.querySelectorAll('.preset-hora').forEach((btn) => {
         btn.addEventListener('click', () => {
           const inputHora = document.getElementById('horaRecogida');
@@ -652,12 +900,12 @@
         });
       });
 
-      // Mostrar campo de billete solo cuando elige Efectivo al retirar
+      // Mostrar campo de billete solo cuando elige Efectivo
       const selectPago = document.getElementById('medioPago');
       const campoEfectivo = document.getElementById('campoEfectivo');
       if (selectPago && campoEfectivo) {
         const toggleEfectivo = () => {
-          campoEfectivo.classList.toggle('hidden', selectPago.value !== 'Efectivo al retirar');
+          campoEfectivo.classList.toggle('hidden', !selectPago.value.startsWith('Efectivo'));
         };
         selectPago.addEventListener('change', toggleEfectivo);
         toggleEfectivo();
@@ -697,14 +945,26 @@
           setEstado('Agrega al menos un producto a tu orden.', true);
           return;
         }
+        const domicilio = esDomicilio();
         const nombre = document.getElementById('cliNombre')?.value.trim() || '';
+        const ubicacion = document.getElementById('ubicacionDomicilio')?.value.trim() || '';
+        const referencia = document.getElementById('referenciaEntrega')?.value.trim() || '';
         const hora = document.getElementById('horaRecogida')?.value.trim() || '';
+
         if (!nombre) {
           setEstado('Por favor escribe tu nombre.', true);
           return;
         }
+        if (domicilio && !ubicacion) {
+          setEstado('Indica tu ubicación o enlace de Maps/Waze para el domicilio.', true);
+          return;
+        }
+        if (domicilio && !referencia) {
+          setEstado('Agrega los detalles o referencia de entrega.', true);
+          return;
+        }
         if (!hora) {
-          setEstado('Indica a qué hora pasas a recoger.', true);
+          setEstado(domicilio ? 'Indica a qué hora deseas recibirlo.' : 'Indica a qué hora pasas a recoger.', true);
           return;
         }
 
@@ -714,6 +974,7 @@
         setEstado('Abriendo WhatsApp con tu pedido listo...');
       });
 
+      actualizarModoEntregaUI();
       renderMenu();
       renderCarrito();
     })();
