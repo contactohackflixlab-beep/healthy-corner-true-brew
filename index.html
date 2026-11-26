@@ -81,7 +81,7 @@
     <div class="card-surface rounded-2xl p-6 md:p-8 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
       <div class="max-w-2xl space-y-2.5">
         <span class="inline-block text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-emerald-900/70 text-emerald-200 border border-emerald-400/30">
-          Para llevar sin fila · Envío gratis hasta 2 km (desde $10)
+          Para llevar sin fila · Envío gratis hasta 2 km (desde $5)
         </span>
         <h1 class="text-2xl sm:text-4xl font-black text-white leading-tight">
           Tu pedido listo justo cuando vas pasando o en tu puerta.
@@ -204,13 +204,13 @@
             <div>
               <label for="rangoDistancia" class="block text-emerald-200 font-semibold mb-1">Distancia / zona (si no usaste GPS)</label>
               <select id="rangoDistancia" class="w-full px-3 py-2 rounded-xl bg-[#0b2317] border border-emerald-300/20 text-white">
-                <option value="hasta-2km">Hasta 2 km del Hospital Chiriquí (Gratis desde $10 / $1.50 si es menor)</option>
+                <option value="hasta-2km">Hasta 2 km del Hospital Chiriquí (Gratis desde $5 / $1.50 si es menor)</option>
                 <option value="2-a-4km">Entre 2 km y 4 km (+$2.00)</option>
                 <option value="mas-4km">Más de 4 km (+$3.00)</option>
               </select>
             </div>
             <p id="estadoGPS" class="text-[11px] text-emerald-200/80">
-              Regla: gratis hasta 2 km desde $10.00; más allá aplica tarifa por distancia.
+              Regla: gratis hasta 2 km desde $5.00; más allá aplica tarifa por distancia.
             </p>
 
             <div>
@@ -289,7 +289,7 @@
       // Ajusta estas coordenadas al punto exacto de tu local diagonal al Hospital Chiriquí
       const LOCAL_COORDS = { lat: 8.4305, lng: -82.4295 };
       const RADIO_GRATIS_KM = 2.0;
-      const MINIMO_GRATIS = 10.0;
+      const MINIMO_GRATIS = 5.0;
       const TARIFA_CORTA_MENOR_MINIMO = 1.50;
       const TARIFA_MEDIA = 2.00;
       const TARIFA_LEJANA = 3.00;
@@ -527,7 +527,7 @@
         const domicilio = esDomicilio();
         if (!carrito.length) {
           guia.textContent = domicilio
-            ? 'Tip de domicilio: gratis hasta 2 km desde $10.00; ítems "Hecho al momento" toman 15–25 min más traslado.'
+            ? 'Tip de domicilio: gratis hasta 2 km desde $5.00; ítems "Hecho al momento" toman 15–25 min más traslado.'
             : 'Tip de retiro: si pides ítems "Hecho al momento", calcula 15–25 min antes de pasar.';
           return;
         }
